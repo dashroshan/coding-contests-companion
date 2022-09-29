@@ -12,7 +12,8 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setColor(0x1089DF)
             .setTitle('CODING CONTESTS')
-            .setDescription('Select a contest platform using the selection box below. CodeChef, LeetCode, HackerRank, and CodeForces are the currently available platforms. More platforms support coming soon :sparkles:');
+            .setURL('https://github.com/roshan1337d/coding-contests-companion')
+            .setDescription('Select a contest platform using the selection box below. CodeChef, LeetCode, HackerRank, and CodeForces are the currently available platforms. Support for more platforms coming soon :sparkles:');
 
         // Create the selection box
         const row = new ActionRowBuilder()

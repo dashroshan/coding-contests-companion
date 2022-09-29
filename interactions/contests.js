@@ -20,7 +20,9 @@ async function contestsSelect(interaction) {
     let data = await interaction.client.database.getPlatformContests(platform);
 
     // Format the contests data for the embed body
-    let respStr = "\u200b\n";
+    let respStr = "";
+    let ongoingTextSent = false;
+    let upcomingTextSent = false;
     for (let i = 0; i < data.length; i++) {
         let contestData = data[i];
         let ongoing = (contestData['start'] < Math.floor(Date.now() / 1000));
@@ -29,19 +31,29 @@ async function contestsSelect(interaction) {
         let durationLeft = contestData['duration'] + contestData['start'] - Date.now() / 1000;
         let hoursLeft = Math.floor(durationLeft / 3600);
         let minsLeft = Math.floor((durationLeft / 60) % 60);
-        if (ongoing)
-            respStr += `**[ONGOING - ${contestData['name']}](${contestData['url']})**\n**Ends on:** <t:${contestData['start'] + contestData['duration']}:D> at <t:${contestData['start'] + contestData['duration']}:t>\n**Time left:** ${hoursLeft} ${hoursLeft === 1 ? 'hour' : 'hours'} and ${minsLeft} ${minsLeft === 1 ? 'minute' : 'minutes'}`;
-        else
-            respStr += `**[${contestData['name']}](${contestData['url']})**\n**Starts on:** <t:${contestData['start']}:D> at <t:${contestData['start']}:t>\n**Duration:** ${hours} ${hours === 1 ? 'hour' : 'hours'}${mins === 0 ? '' : (' and ' + mins + ' minutes')}`;
-        if (i === data.length - 1) respStr += "\n\u200b";
-        else respStr += "\n\n";
+        if (ongoing) {
+            if (!ongoingTextSent) {
+                respStr += "**ONGOING CONTESTS**\n";
+                ongoingTextSent = true;
+            }
+            respStr += `**[${contestData['name']}](${contestData['url']})**\n:stopwatch: ${hoursLeft} ${hoursLeft === 1 ? 'hour' : 'hours'} and ${minsLeft} ${minsLeft === 1 ? 'minute' : 'minutes'} left`;
+        }
+        else {
+            if (!upcomingTextSent) {
+                respStr += "**UPCOMING CONTESTS**\n";
+                upcomingTextSent = true;
+            }
+            respStr += `**[${contestData['name']}](${contestData['url']})**\n:calendar: <t:${contestData['start']}:D> at <t:${contestData['start']}:t>\n:stopwatch: ${hours} ${hours === 1 ? 'hour' : 'hours'}${mins === 0 ? '' : (' and ' + mins + ' minutes')}`;
+        }
+        if (i !== data.length - 1) respStr += "\n\n";
     }
     if (!data.length) respStr += "**No scheduled contests**\n\u200b";
 
     // Create the embed and send it
     const embed = new EmbedBuilder()
         .setColor(0x1089DF)
-        .setTitle("CONTESTS ON " + platforms[platform]['name'].toUpperCase())
+        .setTitle(platforms[platform]['name'].toUpperCase())
+        .setURL(platforms[platform]['url'])
         .setDescription(respStr + "** **")
         .setImage(platforms[platform]['thumb']);
     await interaction.editReply({ embeds: [embed] });

@@ -20,6 +20,7 @@ I am open to, and grateful for, any contributions made by the community to help 
 | commands | All the slash commands |
 | interactions | All the interaction hooks for things like button press, select change etc |
 | database | The mongo.js contains all the database operations, and the schema folder contains the document schemas |
+| utility | The scraping.js file fetches the latest contest details from various platforms, and the notifying.js file sends contest notifications |
 
 ## config.json
 
