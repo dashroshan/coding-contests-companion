@@ -26,7 +26,7 @@ module.exports.saveContests = async function (platform, data) {
 
 // Return an array of contests sorted by their starting date for the given platform
 module.exports.getPlatformContests = async function (platform) {
-    let contests = await contestSchema.find({ platform: platform })
+    let contests = await contestSchema.find({ platform: platform, end: { $gte: Math.floor(Date.now() / 1000) } })
     contests.sort((a, b) => (a.start - b.start));
     return contests;
 }
