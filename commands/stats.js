@@ -25,7 +25,7 @@ module.exports = {
         let ram = ((process.memoryUsage().heapUsed / 1024 / 1024) + (process.memoryUsage().heapTotal / 1024 / 1024)).toFixed(2);
         let respStr = "";
         respStr += `**\`Servers   \`** \`${interaction.client.guilds.cache.size.toString().padEnd(10)}\`\n`
-        respStr += `**\`Users     \`** \`${interaction.client.users.cache.size.toString().padEnd(10)}\`\n`
+        respStr += `**\`Users     \`** \`${interaction.client.guilds.cache.reduce((a, b) => a + b.memberCount, 0).toString().padEnd(10)}\`\n`
         respStr += `**\`Latency   \`** \`${(interaction.client.ws.ping.toString() + 'ms').padEnd(10)}\`\n`
         respStr += `**\`RAM Usage \`** \`${(ram.toString() + 'mb').padEnd(10)}\`\n`
         respStr += `**\`Uptime    \`** \`${(formatTime(Math.floor(interaction.client.uptime / 1000))).padEnd(10)}\``
