@@ -1,6 +1,14 @@
 const { EmbedBuilder } = require('discord.js');
 const channel = require('../database/schema/channel');
 
+// Data about the different supported platforms
+const platforms = {
+    'codechef': 'CodeChef',
+    'leetcode': 'LeetCode',
+    'hackerrank': 'HackerRank',
+    'codeforces': 'CodeForces',
+}
+
 // Send notifications for the contests starting soon
 async function notify(client) {
     const contests = await client.database.getContestsStartingSoon();
@@ -12,7 +20,7 @@ async function notify(client) {
         let contestData = contests[i];
         let hours = Math.floor(contestData['duration'] / 3600);
         let mins = Math.floor((contestData['duration'] / 60) % 60);
-        respStr += `**[${contestData['name']}](${contestData['url']})**\n**Start:** <t:${contestData['start']}:R>\n**Duration:** ${hours} ${hours === 1 ? 'hour' : 'hours'}${mins === 0 ? '' : (' and ' + mins + ' minutes')}`;
+        respStr += `**[${contestData['name']}](${contestData['url']})**\n:dart: ${platforms[contestData['platform']]}\n:calendar: <t:${contestData['start']}:R>\n:stopwatch: ${hours} ${hours === 1 ? 'hour' : 'hours'}${mins === 0 ? '' : (' and ' + mins + ' minutes')}`;
         if (i !== contests.length - 1) respStr += "\n\n";
     }
 
