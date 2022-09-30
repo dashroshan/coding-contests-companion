@@ -1,6 +1,9 @@
 const axios = require("axios");
 const headers = { 'headers': { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36' } };
 
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+
 // Get contests from CodeChef
 async function codeChef() {
     const res = await axios.get('https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=all', headers)
@@ -55,6 +58,44 @@ async function codeForces() {
         return { name, url, start, duration };
     });
     return processedData;
+}
+
+// Get contests from AtCoder
+async function atCoder() {
+    const res = await axios.get('https://atcoder.jp/contests', headers)
+    const dom = new JSDOM(res.data);
+
+    const active = (dom.window.document.getElementById('contest-table-action')); 
+    const upcoming = (dom.window.document.getElementById('contest-table-upcoming')); 
+
+    let array = [];
+
+    function addToArray(row) {
+
+        const epochtime = Date.parse(new Date(row.cells[0].lastChild.firstChild.innerHTML));
+        // Exit if start time isn't valid
+        if (Number.isNaN(epochtime)) return;
+
+        const link = row.cells[1].querySelector('a');
+        const url = 'https://atcoder.jp' + link.href;
+
+        const durstring = row.cells[2].innerHTML.split(':');
+
+        const duration = durstring[0] * 3600 + durstring[1] * 60;
+        
+        array.push({
+            name: link.innerHTML,
+            url: url,
+            start: epochtime,
+            duration: duration
+        });
+        
+    }
+    
+    active.querySelectorAll('table tr').forEach(row => addToArray(row));
+    upcoming.querySelectorAll('table tr').forEach(row => addToArray(row));
+
+    return Array.from(array);
 }
 
 // Save new contests to the db and delete the finished ones
