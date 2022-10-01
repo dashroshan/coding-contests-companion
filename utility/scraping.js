@@ -98,6 +98,25 @@ async function atCoder() {
     return Array.from(array);
 }
 
+// Get contests from HackerEarth
+async function hackerEarth() {
+    const res = await axios.get('https://www.hackerearth.com/chrome-extension/events', headers);
+    const futureContests = res.data.response.filter(c => {
+        const endtime = new Date(c["end_utc_tz"]);
+        return Math.floor(endtime.getTime()/1000) > Math.floor(Date.now()/1000)
+    });
+    let processedData = futureContests.map(c => {
+        const endTimeSeconds = new Date(c["end_utc_tz"]).getTime()/1000;
+        const startTimeSeconds = new Date(c["start_utc_tz"]).getTime()/1000;
+        let name = c["title"];
+        let url = c["url"];
+        let start = startTimeSeconds;
+        let duration = endTimeSeconds - startTimeSeconds;
+        return { name, url, start, duration };
+    });
+    return processedData;
+}
+
 // Save new contests to the db and delete the finished ones
 async function contests(db) {
     await db.saveContests('codechef', await codeChef());
