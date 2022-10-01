@@ -57,14 +57,14 @@ async function contestsPaginate(interaction) {
                 respStr += "**ONGOING CONTESTS**\n";
                 ongoingTextSent = true;
             }
-            respStr += `**[${contestData['name']}](${contestData['url']})**\n:stopwatch: ${hoursLeft} ${hoursLeft === 1 ? 'hour' : 'hours'} and ${minsLeft} ${minsLeft === 1 ? 'minute' : 'minutes'} left`;
+            respStr += `**[${contestData['name']}](${contestData['url']})**\n:stopwatch: **Time left:** ${hoursLeft} ${hoursLeft === 1 ? 'hour' : 'hours'} and ${minsLeft} ${minsLeft === 1 ? 'minute' : 'minutes'}`;
         }
         else {
             if (!upcomingTextSent) {
                 respStr += "**UPCOMING CONTESTS**\n";
                 upcomingTextSent = true;
             }
-            respStr += `**[${contestData['name']}](${contestData['url']})**\n:calendar: <t:${contestData['start']}:D> at <t:${contestData['start']}:t>\n:stopwatch: ${hours} ${hours === 1 ? 'hour' : 'hours'}${mins === 0 ? '' : (' and ' + mins + ' minutes')}`;
+            respStr += `**[${contestData['name']}](${contestData['url']})**\n:calendar: **Start:** <t:${contestData['start']}:D> at <t:${contestData['start']}:t>\n:stopwatch: **Duration:** ${hours} ${hours === 1 ? 'hour' : 'hours'}${mins === 0 ? '' : (' and ' + mins + ' minutes')}`;
         }
         if (i !== maxContests - 1) respStr += "\n\n";
     }
