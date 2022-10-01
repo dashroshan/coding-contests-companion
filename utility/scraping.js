@@ -65,8 +65,8 @@ async function atCoder() {
     const res = await axios.get('https://atcoder.jp/contests', headers)
     const dom = new JSDOM(res.data);
 
-    const active = (dom.window.document.getElementById('contest-table-action')); 
-    const upcoming = (dom.window.document.getElementById('contest-table-upcoming')); 
+    const active = (dom.window.document.getElementById('contest-table-action'));
+    const upcoming = (dom.window.document.getElementById('contest-table-upcoming'));
 
     let array = [];
 
@@ -82,16 +82,16 @@ async function atCoder() {
         const durstring = row.cells[2].innerHTML.split(':');
 
         const duration = durstring[0] * 3600 + durstring[1] * 60;
-        
+
         array.push({
             name: link.innerHTML,
             url: url,
-            start: epochtime,
+            start: Math.floor(epochtime / 1000),
             duration: duration
         });
-        
+
     }
-    
+
     active.querySelectorAll('table tr').forEach(row => addToArray(row));
     upcoming.querySelectorAll('table tr').forEach(row => addToArray(row));
 
@@ -103,11 +103,11 @@ async function hackerEarth() {
     const res = await axios.get('https://www.hackerearth.com/chrome-extension/events', headers);
     const futureContests = res.data.response.filter(c => {
         const endtime = new Date(c["end_utc_tz"]);
-        return Math.floor(endtime.getTime()/1000) > Math.floor(Date.now()/1000)
+        return Math.floor(endtime.getTime() / 1000) > Math.floor(Date.now() / 1000)
     });
     let processedData = futureContests.map(c => {
-        const endTimeSeconds = new Date(c["end_utc_tz"]).getTime()/1000;
-        const startTimeSeconds = new Date(c["start_utc_tz"]).getTime()/1000;
+        const endTimeSeconds = new Date(c["end_utc_tz"]).getTime() / 1000;
+        const startTimeSeconds = new Date(c["start_utc_tz"]).getTime() / 1000;
         let name = c["title"];
         let url = c["url"];
         let start = startTimeSeconds;
@@ -123,6 +123,8 @@ async function contests(db) {
     await db.saveContests('leetcode', await leetCode());
     await db.saveContests('hackerrank', await hackerRank());
     await db.saveContests('codeforces', await codeForces());
+    await db.saveContests('atcoder', await atCoder());
+    await db.saveContests('hackerearth', await hackerEarth());
     await db.deleteFinishedContests();
 }
 

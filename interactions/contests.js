@@ -6,6 +6,8 @@ const platforms = {
     'leetcode': { 'name': 'LeetCode', 'url': 'https://leetcode.com', 'thumb': 'https://i.imgur.com/slIjkP3.jpg' },
     'hackerrank': { 'name': 'HackerRank', 'url': 'https://www.hackerrank.com', 'thumb': 'https://i.imgur.com/sduFQNq.jpg' },
     'codeforces': { 'name': 'CodeForces', 'url': 'https://codeforces.com', 'thumb': 'https://i.imgur.com/EVmQOW5.jpg' },
+    'atcoder': { 'name': 'AtCoder', 'url': 'https://atcoder.jp', 'thumb': 'https://i.imgur.com/mfB9fEI.jpg' },
+    'hackerearth': { 'name': 'HackerEarth', 'url': 'https://www.hackerearth.com', 'thumb': 'https://i.imgur.com/CACYwoz.jpg' },
 }
 
 // Updates the embed from /contests command when the select menu is used
@@ -23,7 +25,8 @@ async function contestsSelect(interaction) {
     let respStr = "";
     let ongoingTextSent = false;
     let upcomingTextSent = false;
-    for (let i = 0; i < data.length; i++) {
+    let maxContests = Math.min(data.length, 6);
+    for (let i = 0; i < maxContests; i++) {
         let contestData = data[i];
         let ongoing = (contestData['start'] < Math.floor(Date.now() / 1000));
         let hours = Math.floor(contestData['duration'] / 3600);
@@ -45,9 +48,9 @@ async function contestsSelect(interaction) {
             }
             respStr += `**[${contestData['name']}](${contestData['url']})**\n:calendar: <t:${contestData['start']}:D> at <t:${contestData['start']}:t>\n:stopwatch: ${hours} ${hours === 1 ? 'hour' : 'hours'}${mins === 0 ? '' : (' and ' + mins + ' minutes')}`;
         }
-        if (i !== data.length - 1) respStr += "\n\n";
+        if (i !== maxContests - 1) respStr += "\n\n";
     }
-    if (!data.length) respStr += "**No scheduled contests**\n\u200b";
+    if (!maxContests) respStr += "**No scheduled contests**\n\u200b";
 
     // Create the embed and send it
     const embed = new EmbedBuilder()

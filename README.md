@@ -9,3 +9,8 @@ Coding Contests Companion is a discord bot that displays ongoing and upcoming co
 ## Contributing
 
 Wish to contribute? **[Check this out](CONTRIBUTING.md)**
+
+| **Contributors** | **Contribution**|
+| --- | --- |
+| [B4CKF1SH](https://github.com/B4CKF1SH) | Added support for AtCoder |
+| [Taduri Saimahesh](https://github.com/saimaheshtaduri) | Added support for HackerEarth |

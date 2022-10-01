@@ -7,6 +7,8 @@ const platforms = {
     'leetcode': 'LeetCode',
     'hackerrank': 'HackerRank',
     'codeforces': 'CodeForces',
+    'atcoder': 'AtCoder',
+    'hackerearth': 'HackerEarth',
 }
 
 // Send notifications for the contests starting soon

@@ -13,7 +13,7 @@ module.exports = {
             .setColor(0x1089DF)
             .setTitle('CODING CONTESTS')
             .setURL('https://github.com/roshan1337d/coding-contests-companion')
-            .setDescription('Select a contest platform using the selection box below. CodeChef, LeetCode, HackerRank, and CodeForces are the currently available platforms. Support for more platforms coming soon :sparkles:');
+            .setDescription('Select a contest platform using the selection box below. CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, and HackerEarth are the currently available platforms. Support for more platforms coming soon :sparkles:');
 
         // Create the selection box
         const row = new ActionRowBuilder()
@@ -41,6 +41,16 @@ module.exports = {
                             label: 'CodeForces',
                             value: 'codeforces',
                             emoji: { id: '1024341762166243348' },
+                        },
+                        {
+                            label: 'AtCoder',
+                            value: 'atcoder',
+                            emoji: { id: '1025657008688484363' },
+                        },
+                        {
+                            label: 'HackerEarth',
+                            value: 'hackerearth',
+                            emoji: { id: '1025657011360243782' },
                         },
                     ),
             );
