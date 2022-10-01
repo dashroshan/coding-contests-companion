@@ -62,38 +62,26 @@ async function codeForces() {
 
 // Get contests from AtCoder
 async function atCoder() {
-    const res = await axios.get('https://atcoder.jp/contests', headers)
+    const res = await axios.get('https://atcoder.jp/contests', headers);
     const dom = new JSDOM(res.data);
-
     const active = (dom.window.document.getElementById('contest-table-action'));
     const upcoming = (dom.window.document.getElementById('contest-table-upcoming'));
 
     let array = [];
-
     function addToArray(row) {
-
         const epochtime = Date.parse(new Date(row.cells[0].lastChild.firstChild.innerHTML));
-        // Exit if start time isn't valid
-        if (Number.isNaN(epochtime)) return;
+        if (Number.isNaN(epochtime)) return; // Exit if start time isn't valid
 
         const link = row.cells[1].querySelector('a');
         const url = 'https://atcoder.jp' + link.href;
-
         const durstring = row.cells[2].innerHTML.split(':');
-
         const duration = durstring[0] * 3600 + durstring[1] * 60;
 
-        array.push({
-            name: link.innerHTML,
-            url: url,
-            start: Math.floor(epochtime / 1000),
-            duration: duration
-        });
-
+        array.push({ name: link.innerHTML, url: url, start: Math.floor(epochtime / 1000), duration: duration });
     }
 
-    active.querySelectorAll('table tr').forEach(row => addToArray(row));
-    upcoming.querySelectorAll('table tr').forEach(row => addToArray(row));
+    if (active) active.querySelectorAll('table tr').forEach(row => addToArray(row));
+    if (upcoming) upcoming.querySelectorAll('table tr').forEach(row => addToArray(row));
 
     return Array.from(array);
 }

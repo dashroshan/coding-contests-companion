@@ -60,8 +60,8 @@ client.on('interactionCreate', async interaction => {
 let loopsInitialized = false;
 client.once('ready', () => {
     if (!loopsInitialized) {
-        // notifyLoop(client);
-        // updateContests(client.database);
+        notifyLoop(client);
+        updateContests(client.database);
         loopsInitialized = true;
     }
     console.log('Bot is online.');
