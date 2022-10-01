@@ -53,7 +53,7 @@ module.exports = {
             .setColor(0x1089DF)
             .setURL('http://roshan.cyou')
             .setTitle('Wish to get notified about coding contests?')
-            .setDescription('Click the **Notifications** button below to get a role which will be pinged whenever any coding contest on CodeChef, LeetCode, HackerRank, or CodeForces is about to start. Click it again to opt-out anytime.');
+            .setDescription('Click the **Notifications** button below to get a role which will be pinged whenever any coding contest on CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, and HackerEarth is about to start. Click it again to opt-out anytime.');
 
         // Save server and channel data to db and send a confirmation message
         await interaction.client.database.saveChannel(interaction.guildId, channel.id, role.id);
