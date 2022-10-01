@@ -1,10 +1,10 @@
 const { SlashCommandBuilder, SlashCommandRoleOption, SlashCommandChannelOption, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js');
 
-// notifications-setup command for creating a role opting emebed and turning the
-// notifications service on for a server
+// setup-contest command for creating a role opting embed and turning the
+// contest notifications service on for a server
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('notifications-setup')
+        .setName('setup-contest')
         .addRoleOption(
             new SlashCommandRoleOption()
                 .setName('role')
@@ -14,10 +14,10 @@ module.exports = {
         .addChannelOption(
             new SlashCommandChannelOption()
                 .setName('channel')
-                .setDescription('Select channel where the notifications will be sent')
+                .setDescription('Select the channel where notifications will be sent')
                 .setRequired(true)
         )
-        .setDescription('Setup and create embed for the notifications role'),
+        .setDescription('Setup upcoming contest notifications'),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
 
@@ -56,8 +56,8 @@ module.exports = {
             .setDescription('Click the **Notifications** button below to get a role which will be pinged whenever any coding contest on CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, or HackerEarth is about to start. Click it again to opt-out anytime.');
 
         // Save server and channel data to db and send a confirmation message
-        await interaction.client.database.saveChannel(interaction.guildId, channel.id, role.id);
-        await interaction.editReply({ content: 'Notifications service has been actived for you server!', ephemeral: true });
+        await interaction.client.database.saveContestChannel(interaction.guildId, channel.id, role.id);
+        await interaction.editReply({ content: 'Upcoming contest notifications service has been actived for you server!', ephemeral: true });
         await interaction.followUp({ embeds: [embed], components: [row] });
     },
 };

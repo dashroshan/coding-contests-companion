@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('discord.js');
-const channel = require('../database/schema/channel');
 
 // Data about the different supported platforms
 const platforms = {
@@ -34,14 +33,14 @@ async function notify(client) {
         .setDescription(respStr);
 
     // Send the embed with their respective role ping to all the channels in db
-    const channels = await client.database.getChannels();
+    const channels = await client.database.getContestChannels();
     for (let channelData of channels) {
         try {
             let channel = await client.channels.fetch(channelData['channel']);
             await channel.send({ content: `<@&${channelData['roleToPing']}>`, embeds: [embed] });
         } catch (error) {
             // Delete the channel from db if bot was unable to access it
-            await client.database.deleteChannel(channelData['channel']);
+            await client.database.deleteContestChannel(channelData['channel']);
         }
     }
 }

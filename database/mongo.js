@@ -1,5 +1,7 @@
 const contestSchema = require('./schema/contest.js');
-const channelSchema = require('./schema/channel.js');
+const configurationSchema = require('./schema/configuration.js');
+const contestChannelSchema = require('./schema/contestChannel.js');
+const problemChannelSchema = require('./schema/problemChannel.js');
 
 // Save contests from the data array as individual documents for the given platform
 module.exports.saveContests = async function (platform, data) {
@@ -47,9 +49,9 @@ module.exports.deleteFinishedContests = async function () {
     await contestSchema.deleteMany({ end: { $lte: Math.floor(Date.now() / 1000) } });
 }
 
-// Save channel where notifications would be sent by the bot
-module.exports.saveChannel = async function (server, channel, role) {
-    await channelSchema.findOneAndUpdate(
+// Save channel where contest notifications would be sent by the bot
+module.exports.saveContestChannel = async function (server, channel, role) {
+    await contestChannelSchema.findOneAndUpdate(
         { server: server },
         {
             $set: {
@@ -61,21 +63,74 @@ module.exports.saveChannel = async function (server, channel, role) {
     );
 }
 
-// Get all channels opted in for receiving the notifications
-module.exports.getChannels = async function () {
-    let channels = await channelSchema.find({});
+// Save channel where daily problems would be sent by the bot
+module.exports.saveProblemChannel = async function (server, channel) {
+    await problemChannelSchema.findOneAndUpdate(
+        { server: server },
+        {
+            $set: {
+                channel: channel
+            }
+        },
+        { upsert: true, new: true }
+    );
+}
+
+// Get all channels opted in for receiving the contest notifications
+module.exports.getContestChannels = async function () {
+    let channels = await contestChannelSchema.find({});
     return channels;
 }
 
-// Delete a saved channel by channel id
+// Get all channels opted in for receiving the daily problems
+module.exports.getProblemChannels = async function () {
+    let channels = await problemChannelSchema.find({});
+    return channels;
+}
+
+// Delete a saved channel by channel id for contest notifications
 // Used when the bot is unable to send a message in the channel
-module.exports.deleteChannel = async function (channelID) {
-    await channelSchema.deleteOne({ channel: channelID });
+module.exports.deleteContestChannel = async function (channelID) {
+    await contestChannelSchema.deleteOne({ channel: channelID });
+}
+
+// Delete a saved channel by channel id for daily problems
+// Used when the bot is unable to send a message in the channel
+module.exports.deleteProblemChannel = async function (channelID) {
+    await problemChannelSchema.deleteOne({ channel: channelID });
 }
 
 // Delete a saved channel by its server id
-// Used by the notifications-stop command
-module.exports.deleteSever = async function (serverID) {
-    const resp = await channelSchema.deleteOne({ server: serverID });
+// Used by the stop command for contest notifications
+module.exports.deleteContestServer = async function (serverID) {
+    const resp = await contestChannelSchema.deleteOne({ server: serverID });
     return resp.deletedCount;
+}
+
+// Delete a saved channel by its server id
+// Used by the stop command for daily problems
+module.exports.deleteProblemServer = async function (serverID) {
+    const resp = await problemChannelSchema.deleteOne({ server: serverID });
+    return resp.deletedCount;
+}
+
+// Set last daily problem sent day to today
+module.exports.setLastDailyProblem = async function () {
+    const day = (new Date()).getUTCDate();
+    await configurationSchema.findOneAndUpdate(
+        { name: 'config' },
+        {
+            $set: {
+                lastDailyProblem: day
+            }
+        },
+        { upsert: true, new: true }
+    );
+}
+
+// Get last daily problem sent day
+module.exports.getLastDailyProblem = async function () {
+    let config = await configurationSchema.findOne({ name: 'config' });
+    if (!config) return -1;
+    return config.lastDailyProblem;
 }

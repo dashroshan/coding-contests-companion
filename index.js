@@ -1,7 +1,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const updateContests = require('./utility/scraping');
-const notifyLoop = require('./utility/notifying.js');
+const contestsScrapingLoop = require('./utility/contests scraping');
+const contestsMessageLoop = require('./utility/contests message');
+const problemMessageLoop = require('./utility/problem message');
 const { tokenTest, tokenProd, mongourlTest, mongourlProd, isProduction } = require('./config.json');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -60,8 +61,9 @@ client.on('interactionCreate', async interaction => {
 let loopsInitialized = false;
 client.once('ready', () => {
     if (!loopsInitialized) {
-        notifyLoop(client);
-        updateContests(client.database);
+        contestsMessageLoop(client);
+        problemMessageLoop(client);
+        contestsScrapingLoop(client.database);
         loopsInitialized = true;
     }
     console.log('Bot is online.');
