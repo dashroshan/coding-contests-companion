@@ -4,13 +4,21 @@
 
 ## About
 
-Coding Contests Companion is a discord bot that displays ongoing and upcoming coding contests from CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, and HackerEarth and sends notification an hour before any contest is about to start. **Never miss a coding contest again!**
+Coding Contests Companion is a discord bot that displays ongoing and upcoming coding contests from CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, and HackerEarth, and sends notification an hour before any contest is about to start. **Never miss a coding contest again!**
 
 ## Contributing
 
-Wish to contribute? **[Check this out](CONTRIBUTING.md)**
+<details>
+<summary>Project contributors</summary>
 
-| **Contributors** | **Contribution**|
+### 
+
+| | **Contribution**|
 | --- | --- |
 | [B4CKF1SH](https://github.com/B4CKF1SH) | Added support for AtCoder |
 | [Taduri Saimahesh](https://github.com/saimaheshtaduri) | Added support for HackerEarth |
+| [Swoyam Siddharth Nayak](https://github.com/swoyam2609) | Corrected available platform details |
+
+</details>
+
+Wish to contribute? **[Check this out](CONTRIBUTING.md)**
