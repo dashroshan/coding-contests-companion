@@ -1,5 +1,6 @@
 const axios = require("axios");
 const headers = { 'headers': { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36' } };
+const puppeteer = require("puppeteer")
 
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
@@ -86,6 +87,34 @@ async function atCoder() {
     return Array.from(array);
 }
 
+// Get contests from Google KickStart
+async function kickStart() {
+    const browser = await puppeteer.launch()
+    const page = await browser.newPage()
+    await page.goto('https://codingcompetitions.withgoogle.com/kickstart/schedule')
+    await page.waitForSelector('.schedule-row')
+    const processedData = await page.evaluate(()=> {
+        const upComing = Array.from(document.body.querySelectorAll(".schedule-row.schedule-row__upcoming"))
+        let array=[]
+        upComing.forEach(contest => {
+            let allCells = Array.from(contest.children)
+            let data = allCells.map( 
+                eachCell => 
+                eachCell.children[0].href ? eachCell.children[0].href : eachCell.children[0].innerHTML 
+            )
+            const name = data[0]
+            const startDateUTC = data[1] + " UTC"
+            const start = new Date(startDateUTC).getTime()/1000
+            const url = data[4]
+            const duration = (data[3].split(" ")[0])*3600
+            array.push({name, url, start, duration})
+        })
+        return array
+    })
+    await browser.close()
+    return processedData
+}
+
 // Get contests from HackerEarth
 async function hackerEarth() {
     const res = await axios.get('https://www.hackerearth.com/chrome-extension/events', headers);
@@ -113,6 +142,7 @@ async function contests(db) {
     await db.saveContests('codeforces', await codeForces());
     await db.saveContests('atcoder', await atCoder());
     await db.saveContests('hackerearth', await hackerEarth());
+    await db.saveContests('kickstart', await kickStart());
     await db.deleteFinishedContests();
 }
 
