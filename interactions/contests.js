@@ -8,7 +8,7 @@ const platforms = {
     'codeforces': { 'name': 'CodeForces', 'url': 'https://codeforces.com', 'thumb': 'https://i.imgur.com/EVmQOW5.jpg' },
     'atcoder': { 'name': 'AtCoder', 'url': 'https://atcoder.jp', 'thumb': 'https://i.imgur.com/mfB9fEI.jpg' },
     'hackerearth': { 'name': 'HackerEarth', 'url': 'https://www.hackerearth.com', 'thumb': 'https://i.imgur.com/CACYwoz.jpg' },
-    'kickstart': { 'name': 'Google KickStart', 'url': 'https://codingcompetitions.withgoogle.com/kickstart', 'thumb': 'https://i.imgur.com/TWF3huS.jpg' }
+    'kickstart': { 'name': 'Google KickStart', 'url': 'https://codingcompetitions.withgoogle.com/kickstart', 'thumb': 'https://i.imgur.com/lQWWQ2f.jpg' }
 }
 
 // Total contests to show per page

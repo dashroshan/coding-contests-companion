@@ -104,7 +104,7 @@ async function kickStart() {
             const name = data[0]
             const startDateUTC = data[1] + " UTC"
             const start = new Date(startDateUTC).getTime() / 1000
-            const url = data[4]
+            const url = 'https://codingcompetitions.withgoogle.com/kickstart/schedule';
             const duration = (data[3].split(" ")[0]) * 3600
             array.push({ name, url, start, duration })
         })
