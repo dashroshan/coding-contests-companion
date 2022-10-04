@@ -8,6 +8,7 @@ const platforms = {
     'codeforces': 'CodeForces',
     'atcoder': 'AtCoder',
     'hackerearth': 'HackerEarth',
+    'kickstart': 'Google KickStart',
 }
 
 // Send notifications for the contests starting soon
