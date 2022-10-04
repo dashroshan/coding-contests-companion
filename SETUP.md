@@ -10,7 +10,7 @@
    
    > `Bot Permissions` : administrator
 
-   > Keep your token and any file containing it `private`. If it ever leaks or you suspect it may have leaked, simply `regenerate` a new token to invalidate your compromised token.
+   > Keep your token and any file containing it `private`. If it ever leaks or you suspect it may have leaked, simply `regenerate` a new fresh token to invalidate your compromised token.
    
 4. Invite the bot using this link by replacing the clientID.
    ```sh
