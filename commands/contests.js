@@ -55,7 +55,7 @@ module.exports = {
                         {
                             label: 'Google KickStart',
                             value: 'kickstart',
-                            emoji: { id: '1025393492358332548' },
+                            emoji: { id: '1026701223224688711' },
                         }
                     ),
             );

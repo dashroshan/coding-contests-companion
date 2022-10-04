@@ -1,17 +1,17 @@
-# Contributing
+I am open to, and grateful for any contributions made by the community to help develop this discord bot. Please go through this document once before you contribute or open a pull request.
 
-I am open to, and grateful for, any contributions made by the community to help develop this discord bot. Please go through this document once completely before you contribute or open a pull request.
+# General Information
 
 ## Made With
 
 - JavaScript and Node.js
-- Axios for scraping the contest details
+- Puppeteer, Axios, and jsDom for scraping the contest details
 - Discord.js for interacting with Discord
 - MonogDB as the database
 - Moongoose for interacting with MongoDB
 - Microsoft Azure for hosting the bot
 
-## Directories
+## Folder Structure
 
 | File or Folder | Use|
 | --- | --- |
@@ -22,9 +22,15 @@ I am open to, and grateful for, any contributions made by the community to help 
 | database | The mongo.js contains all the database operations, and the schema folder contains the document schemas |
 | utility | The contests scraping.js file fetches the latest contest details from various platforms, contest message.js file sends the contest notifications, and problem message.js file send the daily problems |
 
-## config.json
+# Setup Instructions
 
-A config.json file present in the same location as the index.js file contains all the bot secret configurations and hence not available publicly on this repo. You need to create one and update the testing_x attributes in the below format:
+## 1. Local Setup
+
+Clone this repository and install all required dependencies using `npm install`
+
+## 2. Create config.json File
+
+A config.json file present in the same location as the index.js file contains all the bot secret configurations and hence not available publicly on this repo. The format is given below. You need to create one and update the following: `guildId`, `clientIdTest`, `tokenTest`, `mongourlTest`
 
 ```json
 {
@@ -39,10 +45,31 @@ A config.json file present in the same location as the index.js file contains al
 }
 ```
 
-## Developing
 
-Create a test bot in the [discord developers portal](https://discord.com/developers), add it to your testing server, update the config.json file, run the bot with `node index.js` command.
+## 3. Create Discord Bot Account
 
-## Submit
+1. Open the [Discord Developers Portal.](https://discord.com/developers/applications)
 
-Open a pull request with your changes describing in the best possible way what you have done.
+2. Switch to `Applications` tab and then click the `New Application` button, enter your desired bot name and click `Create`.
+
+3. Switch to `Bot` tab, click `Add Bot`, and confirm `Yes, do it!`. Click on `Reset Token` and copy the new token (this is the `tokenTest` for config.json file).
+
+4. Switch to `General Information` tab, copy the `APPLICATION ID` (this is the `clientIdTest` for config.json file), and invite the bot to your test server using the below link by replacing the `{APPLICATION_ID_HERE}`
+    ```sh
+    https://discord.com/oauth2/authorize?client_id={APPLICATION_ID_HERE}&permissions=268435456&scope=bot%20applications.commands
+    ```
+
+## 4. Other config.json Parameters
+
+1. When you open your test server on discord, the link will be in the below format. Get the `guildId` from here.
+
+    ```
+    https://discord.com/channels/guildId/channelId
+    ```
+
+2. Setup MongoDB server locally or create a MongoDB Atlas account, and get the connection url (look this up on YouTube as it is beyond the scope of this setup instruction). This will be the `mongourlTest`.
+
+## 5. Finishing Up
+
+1. Deploy the slash commands once using `node deploy.js`
+2. Run the bot using `node index.js`

@@ -1,9 +1,8 @@
 const axios = require("axios");
-const headers = { 'headers': { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36' } };
-const puppeteer = require("puppeteer")
-
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+const puppeteer = require("puppeteer");
+const headers = { 'headers': { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36' } };
 
 // Get contests from CodeChef
 async function codeChef() {
@@ -93,21 +92,21 @@ async function kickStart() {
     const page = await browser.newPage()
     await page.goto('https://codingcompetitions.withgoogle.com/kickstart/schedule')
     await page.waitForSelector('.schedule-row')
-    const processedData = await page.evaluate(()=> {
+    const processedData = await page.evaluate(() => {
         const upComing = Array.from(document.body.querySelectorAll(".schedule-row.schedule-row__upcoming"))
-        let array=[]
+        let array = []
         upComing.forEach(contest => {
             let allCells = Array.from(contest.children)
-            let data = allCells.map( 
-                eachCell => 
-                eachCell.children[0].href ? eachCell.children[0].href : eachCell.children[0].innerHTML 
+            let data = allCells.map(
+                eachCell =>
+                    eachCell.children[0].href ? eachCell.children[0].href : eachCell.children[0].innerHTML
             )
             const name = data[0]
             const startDateUTC = data[1] + " UTC"
-            const start = new Date(startDateUTC).getTime()/1000
+            const start = new Date(startDateUTC).getTime() / 1000
             const url = data[4]
-            const duration = (data[3].split(" ")[0])*3600
-            array.push({name, url, start, duration})
+            const duration = (data[3].split(" ")[0]) * 3600
+            array.push({ name, url, start, duration })
         })
         return array
     })

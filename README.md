@@ -20,6 +20,8 @@ It can also send a random problem selected by LeetCode everyday covering a varie
 | [B4CKF1SH](https://github.com/B4CKF1SH) | Added support for AtCoder |
 | [Taduri Saimahesh](https://github.com/saimaheshtaduri) | Added support for HackerEarth |
 | [Swoyam Siddharth Nayak](https://github.com/swoyam2609) | Corrected available platform details |
+| [Souvik Nayak](https://github.com/Souvik-Nayak) | Wrote the setup instructions |
+| [Sahil Anower](https://github.com/SahilAnower) | Added support for Google KickStart |
 
 </details>
 

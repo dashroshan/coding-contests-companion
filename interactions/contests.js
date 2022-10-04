@@ -8,7 +8,7 @@ const platforms = {
     'codeforces': { 'name': 'CodeForces', 'url': 'https://codeforces.com', 'thumb': 'https://i.imgur.com/EVmQOW5.jpg' },
     'atcoder': { 'name': 'AtCoder', 'url': 'https://atcoder.jp', 'thumb': 'https://i.imgur.com/mfB9fEI.jpg' },
     'hackerearth': { 'name': 'HackerEarth', 'url': 'https://www.hackerearth.com', 'thumb': 'https://i.imgur.com/CACYwoz.jpg' },
-    'kickstart': { 'name': 'Google Kickstart', 'url': 'https://codingcompetitions.withgoogle.com/kickstart/schedule', 'thumb': 'https://i.imgur.com/y7QMsGh.png' }
+    'kickstart': { 'name': 'Google KickStart', 'url': 'https://codingcompetitions.withgoogle.com/kickstart', 'thumb': 'https://i.imgur.com/TWF3huS.jpg' }
 }
 
 // Total contests to show per page
@@ -122,6 +122,11 @@ async function contestsPaginate(interaction) {
                         label: 'HackerEarth',
                         value: 'hackerearth',
                         emoji: { id: '1025657011360243782' },
+                    },
+                    {
+                        label: 'Google KickStart',
+                        value: 'kickstart',
+                        emoji: { id: '1026701223224688711' },
                     },
                 ),
         );
