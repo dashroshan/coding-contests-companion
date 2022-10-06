@@ -81,12 +81,9 @@ client.on('guildCreate', async guild => {
 // Start the contests updating loop and notifications sending loop when bot is ready
 let loopsInitialized = false;
 client.once('ready', () => {
-
-    const activities = [ `${client.guilds.cache.size} servers`, "/help for user guide" ]
-
     var i = 0 ;
     setInterval(() => {
-        
+        const activities = [ `${client.guilds.cache.size} servers`, "/help for user guide" ]
         client.user.setActivity(activities[i], {type : ActivityType.Watching});
         i = 1 - i ;
 
