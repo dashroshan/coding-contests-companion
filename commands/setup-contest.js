@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, SlashCommandRoleOption, SlashCommandChannelOption, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js');
 
+const buildEmbed = require("../utility/buildEmbed");
 // setup-contest command for creating a role opting embed and turning the
 // contest notifications service on for a server
 module.exports = {
@@ -23,21 +24,24 @@ module.exports = {
 
         // Only the admin can use this command
         if (!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
-            await interaction.editReply({ content: 'You need to be an **Administrator** to run this command!', ephemeral: true });
+            const embed = buildEmbed('Permissions Error', 'You need to be an **Administrator** to run this command!')
+            await interaction.editReply({ embeds: [embed] });
             return;
         }
 
         // The bot should be able to send messages in the selected channels
         const channel = interaction.options.getChannel('channel');
         if (!channel.permissionsFor(interaction.client.user).has(PermissionFlagsBits.SendMessages)) {
-            await interaction.editReply({ content: 'The bot needs to have **Send Messages** permission in the selected channel!', ephemeral: true });
+            const embed = buildEmbed('Permissions Error', 'The bot needs to have **Send Messages** premission in the selected channel!',)
+            await interaction.editReply({ embeds: [embed] });
             return;
         }
 
         // The bot should be able to manage the selected notifications role
         const role = interaction.options.getRole('role');
         if (!role.editable) {
-            await interaction.editReply({ content: `**${role.name}** role need to be present below the bot role, inorder for the bot to manage it. Open server settings, go to roles, drag the bot role above the ${role.name} role, and run this command again.`, ephemeral: true });
+            const embed = buildEmbed('Lower Role Error', `**${role.name}** role need to be present below the bot role, inorder for the bot to manage it. Open server settings, go to roles, drag the bot role above the ${role.name} role, and run this command again.`);
+            await interaction.editReply({ embeds: [embed] });
             return;
         }
 
