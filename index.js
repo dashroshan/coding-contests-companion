@@ -4,7 +4,7 @@ const contestsScrapingLoop = require('./utility/contests scraping');
 const contestsMessageLoop = require('./utility/contests message');
 const problemMessageLoop = require('./utility/problem message');
 const { tokenTest, tokenProd, mongourlTest, mongourlProd, isProduction } = require('./config.json');
-const { Client, Collection, GatewayIntentBits, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
+const { Client, Collection, GatewayIntentBits, EmbedBuilder, PermissionFlagsBits, ActivityType } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 // Initilize mongoDB connection
@@ -46,6 +46,7 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
+
 // On interaction check and run interaction hooks
 client.on('interactionCreate', async interaction => {
     for (const command of interactionCommands) {
@@ -80,6 +81,17 @@ client.on('guildCreate', async guild => {
 // Start the contests updating loop and notifications sending loop when bot is ready
 let loopsInitialized = false;
 client.once('ready', () => {
+
+    const activities = [ `${client.guilds.cache.size} servers`, "/help for user guide" ]
+
+    var i = 0 ;
+    setInterval(() => {
+        
+        client.user.setActivity(activities[i], {type : ActivityType.Watching});
+        i = 1 - i ;
+
+    }, 15000); // Runs this every 15 seconds 
+    
     if (!loopsInitialized) {
         contestsMessageLoop(client);
         problemMessageLoop(client);
