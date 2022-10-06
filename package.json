@@ -13,7 +13,7 @@
         "axios": "^0.27.2",
         "discord.js": "^14.3.0",
         "jsdom": "^20.0.0",
-        "mongoose": "^6.6.2",
+        "mongoose": "^6.6.4",
         "puppeteer": "^18.0.5"
     }
 }
