@@ -24,6 +24,7 @@ Use the /help command after inviting the bot for the user guide.
 | [Swoyam Siddharth Nayak](https://github.com/swoyam2609) | Corrected available platform details |
 | [Souvik Nayak](https://github.com/Souvik-Nayak) | Wrote the setup instructions |
 | [Sahil Anower](https://github.com/SahilAnower) | Added support for Google KickStart |
+| [DevilzzNikhil](https://github.com/DevilzzNikhil) | Added server joining message feature |
 
 </details>
 

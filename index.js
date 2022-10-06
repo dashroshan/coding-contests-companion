@@ -4,7 +4,7 @@ const contestsScrapingLoop = require('./utility/contests scraping');
 const contestsMessageLoop = require('./utility/contests message');
 const problemMessageLoop = require('./utility/problem message');
 const { tokenTest, tokenProd, mongourlTest, mongourlProd, isProduction } = require('./config.json');
-const { Client, Collection, GatewayIntentBits, EmbedBuilder, PermissionFlagsBits} = require('discord.js');
+const { Client, Collection, GatewayIntentBits, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 // Initilize mongoDB connection
@@ -57,39 +57,24 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
-
-// Sending Message on Joining new server in channel in which it has permissions
-client.on('guildCreate', guild => {
-
-    console.log("BOT ENTERED NEW CHANNEL");
-
-    let channelToSend ;
-
-    guild.channels.cache.forEach( channel => {
-
+// Sends a joining message in the first channel of the server where it has send messages permission
+client.on('guildCreate', async guild => {
+    let channelToSend;
+    guild.channels.cache.forEach(channel => {
         const hasPermission = channel.permissionsFor(client.user).has(PermissionFlagsBits.SendMessages);
+        if (channel.type === 0 && !channelToSend && hasPermission) channelToSend = channel;
+    });
 
-        if(channel.type === 0 && !channelToSend &&  hasPermission )
-        {
-            channelToSend = channel ;
-        }
-    })
+    // Return if no channel with send messages permission found
+    if (!channelToSend) return;
 
-    if(!channelToSend)
-    {
-        console.log("No Channel has permisson");
-        return ;
-    } 
-
+    // Create and send the embed
     const embed = new EmbedBuilder()
-        .setTitle("HELLO WORLD")
+        .setTitle(`Hello ${guild.name}`)
         .setURL("https://github.com/roshan1337d/coding-contests-companion")
         .setColor("1089DF")
-        .setDescription("Thank you for inviting the Coding Contests Companion to this server. It can show ongoing and upcoming contest information, send notifications before one is about to start, and send daily problems from various popular coding platforms. Use the **/help** command for the user guide. If you're facing any difficulties, feel free to **[join the support server.](https://discord.gg/9sDtq74DMn)**") ;
-
-    channelToSend.send({ embeds: [embed]});
-
-
+        .setDescription("Thank you for inviting the Coding Contests Companion to this server. It can show ongoing and upcoming contest information, send notifications before one is about to start, and send daily problems from various popular coding platforms. Use the **/help** command for the user guide. If you're facing any difficulties, feel free to **[join the support server.](https://discord.gg/9sDtq74DMn)**");
+    await channelToSend.send({ embeds: [embed] });
 });
 
 // Start the contests updating loop and notifications sending loop when bot is ready
