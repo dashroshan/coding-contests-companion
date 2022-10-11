@@ -1,9 +1,9 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const changingActivityLoop = require('./loops/changing activity');
 const contestsScrapingLoop = require('./loops/contests scraping');
 const contestsMessageLoop = require('./loops/contests message');
 const problemMessageLoop = require('./loops/problem message');
-const changingActivityLoop = require('./loops/changing activity');
 const joiningMessage = require('./utility/joining message');
 const { tokenTest, tokenProd, mongourlTest, mongourlProd, isProduction } = require('./config.json');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, PermissionFlagsBits, ActivityType } = require('discord.js');
@@ -68,9 +68,9 @@ let loopsInitialized = false;
 client.once('ready', () => {
     if (!loopsInitialized) {
         changingActivityLoop(client);
-        // contestsMessageLoop(client);
-        // problemMessageLoop(client);
-        // contestsScrapingLoop(client.database);
+        contestsMessageLoop(client);
+        problemMessageLoop(client);
+        contestsScrapingLoop(client.database);
         loopsInitialized = true;
     }
     console.log('Bot is online.');

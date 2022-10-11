@@ -31,6 +31,6 @@ module.exports = {
         **\`RAM Usage \`** \`${(ram.toString() + 'mb').padEnd(10)}\`
         **\`Uptime    \`** \`${(formatTime(Math.floor(interaction.client.uptime / 1000))).padEnd(10)}\``
 
-        await embedMessage(interaction, 'Bot Stats', respStr, false);
+        await embedMessage(interaction, 'BOT STATS', respStr, false);
     },
 };
