@@ -1,8 +1,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const contestsScrapingLoop = require('./utility/contests scraping');
-const contestsMessageLoop = require('./utility/contests message');
-const problemMessageLoop = require('./utility/problem message');
+const contestsScrapingLoop = require('./loops/contests scraping');
+const contestsMessageLoop = require('./loops/contests message');
+const problemMessageLoop = require('./loops/problem message');
 const { tokenTest, tokenProd, mongourlTest, mongourlProd, isProduction } = require('./config.json');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, PermissionFlagsBits, ActivityType } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });

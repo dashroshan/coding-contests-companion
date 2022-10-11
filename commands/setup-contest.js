@@ -32,7 +32,7 @@ module.exports = {
         // The bot should be able to send messages in the selected channels
         const channel = interaction.options.getChannel('channel');
         if (!channel.permissionsFor(interaction.client.user).has(PermissionFlagsBits.SendMessages)) {
-            const embed = buildEmbed('Permissions Error', 'The bot needs to have **Send Messages** premission in the selected channel!',)
+            const embed = buildEmbed('Permissions Error', 'The bot needs to have **Send Messages** premission in the selected channel!')
             await interaction.editReply({ embeds: [embed] });
             return;
         }

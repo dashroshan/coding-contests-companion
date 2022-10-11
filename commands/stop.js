@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
-const buildEmbed = require('../utility/buildEmbed');
+const buildEmbed = require('../loops/buildEmbed');
 
 // stop command for a server to stop any running service
 module.exports = {

@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, SlashCommandChannelOption, PermissionFlagsBits } = require('discord.js');
 
-const buildEmbed = require("../utility/buildEmbed");
+const buildEmbed = require("../loops/buildEmbed");
 
 // setup-problem command for turning problem of the day service on for a server
 module.exports = {
