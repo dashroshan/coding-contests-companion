@@ -3,6 +3,8 @@ const path = require('node:path');
 const contestsScrapingLoop = require('./loops/contests scraping');
 const contestsMessageLoop = require('./loops/contests message');
 const problemMessageLoop = require('./loops/problem message');
+const changingActivityLoop = require('./loops/changing activity');
+const joiningMessage = require('./utility/joining message');
 const { tokenTest, tokenProd, mongourlTest, mongourlProd, isProduction } = require('./config.json');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, PermissionFlagsBits, ActivityType } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -59,40 +61,16 @@ client.on('interactionCreate', async interaction => {
 });
 
 // Sends a joining message in the first channel of the server where it has send messages permission
-client.on('guildCreate', async guild => {
-    let channelToSend;
-    guild.channels.cache.forEach(channel => {
-        const hasPermission = channel.permissionsFor(client.user).has(PermissionFlagsBits.SendMessages);
-        if (channel.type === 0 && !channelToSend && hasPermission) channelToSend = channel;
-    });
-
-    // Return if no channel with send messages permission found
-    if (!channelToSend) return;
-
-    // Create and send the embed
-    const embed = new EmbedBuilder()
-        .setTitle(`Hello ${guild.name}`)
-        .setURL("https://github.com/roshan1337d/coding-contests-companion")
-        .setColor("1089DF")
-        .setDescription("Thank you for inviting the Coding Contests Companion to this server. It can show ongoing and upcoming contest information, send notifications before one is about to start, and send daily problems from various popular coding platforms. Use the **/help** command for the user guide. If you're facing any difficulties, feel free to **[join the support server.](https://discord.gg/9sDtq74DMn)**");
-    await channelToSend.send({ embeds: [embed] });
-});
+client.on('guildCreate', async guild => await joiningMessage(guild));
 
 // Start the contests updating loop and notifications sending loop when bot is ready
 let loopsInitialized = false;
 client.once('ready', () => {
-    var i = 0 ;
-    setInterval(() => {
-        const activities = [ `${client.guilds.cache.size} servers`, "/help for user guide" ]
-        client.user.setActivity(activities[i], {type : ActivityType.Watching});
-        i = 1 - i ;
-
-    }, 15000); // Runs this every 15 seconds 
-    
     if (!loopsInitialized) {
-        contestsMessageLoop(client);
-        problemMessageLoop(client);
-        contestsScrapingLoop(client.database);
+        changingActivityLoop(client);
+        // contestsMessageLoop(client);
+        // problemMessageLoop(client);
+        // contestsScrapingLoop(client.database);
         loopsInitialized = true;
     }
     console.log('Bot is online.');

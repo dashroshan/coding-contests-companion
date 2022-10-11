@@ -1,6 +1,6 @@
+const embedMessage = require('../utility/embed message');
 const { SlashCommandBuilder, SlashCommandRoleOption, SlashCommandChannelOption, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js');
 
-const buildEmbed = require("../utility/buildEmbed");
 // setup-contest command for creating a role opting embed and turning the
 // contest notifications service on for a server
 module.exports = {
@@ -24,24 +24,21 @@ module.exports = {
 
         // Only the admin can use this command
         if (!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
-            const embed = buildEmbed('Permissions Error', 'You need to be an **Administrator** to run this command!')
-            await interaction.editReply({ embeds: [embed] });
+            await embedMessage(interaction, 'PERMISSIONS ERROR', 'You need to be an **Administrator** to run this command.')
             return;
         }
 
         // The bot should be able to send messages in the selected channels
         const channel = interaction.options.getChannel('channel');
         if (!channel.permissionsFor(interaction.client.user).has(PermissionFlagsBits.SendMessages)) {
-            const embed = buildEmbed('Permissions Error', 'The bot needs to have **Send Messages** premission in the selected channel!')
-            await interaction.editReply({ embeds: [embed] });
+            await embedMessage(interaction, 'PERMISSIONS ERROR', 'The bot needs to have **Send Messages** premission in the selected channel.')
             return;
         }
 
         // The bot should be able to manage the selected notifications role
         const role = interaction.options.getRole('role');
         if (!role.editable) {
-            const embed = buildEmbed('Lower Role Error', `**${role.name}** role need to be present below the bot role, inorder for the bot to manage it. Open server settings, go to roles, drag the bot role above the ${role.name} role, and run this command again.`);
-            await interaction.editReply({ embeds: [embed] });
+            await embedMessage(interaction, 'LOWER ROLE ERROR', `**${role.name}** role need to be present below the bot role, inorder for the bot to manage it. Open server settings, go to roles, drag the bot role above the ${role.name} role, and run this command again.`);
             return;
         }
 
@@ -53,15 +50,11 @@ module.exports = {
                     .setLabel('Notifications')
                     .setStyle(ButtonStyle.Secondary),
             );
-        const embed = new EmbedBuilder()
-            .setColor(0x1089DF)
-            .setURL('http://roshan.cyou')
-            .setTitle('Wish to get notified about coding contests?')
-            .setDescription('Click the **Notifications** button below to get a role which will be pinged whenever any coding contest on CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, HackerEarth, or Google KickStart is about to start. Click it again to opt-out anytime.');
+        const embed = await embedMessage(interaction,'Wish to get notified about coding contests?','Click the **Notifications** button below to get a role which will be pinged whenever any coding contest on CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, HackerEarth, or Google KickStart is about to start. Click it again to opt-out anytime.',false,'https://github.com/roshan1337d/coding-contests-companion',true);
 
         // Save server and channel data to db and send a confirmation message
         await interaction.client.database.saveContestChannel(interaction.guildId, channel.id, role.id);
-        await interaction.editReply({ content: 'Upcoming contest notifications service has been actived for you server!', ephemeral: true });
+        await embedMessage(interaction, 'SERVICE ACTIVATED','Upcoming contest notifications service has been actived for you server.', false);
         await interaction.followUp({ embeds: [embed], components: [row] });
     },
 };

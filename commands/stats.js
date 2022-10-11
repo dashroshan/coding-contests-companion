@@ -1,4 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const embedMessage = require('../utility/embed message');
+const { SlashCommandBuilder } = require('discord.js');
 
 // Convert seconds to the most significant unit among seconds, minutes, hours, or days
 function formatTime(seconds) {
@@ -23,18 +24,13 @@ module.exports = {
 
         // Stats data for the embed body
         let ram = ((process.memoryUsage().heapUsed / 1024 / 1024) + (process.memoryUsage().heapTotal / 1024 / 1024)).toFixed(2);
-        let respStr = "";
-        respStr += `**\`Servers   \`** \`${interaction.client.guilds.cache.size.toString().padEnd(10)}\`\n`
-        respStr += `**\`Users     \`** \`${interaction.client.guilds.cache.reduce((a, b) => a + b.memberCount, 0).toString().padEnd(10)}\`\n`
-        respStr += `**\`Latency   \`** \`${(interaction.client.ws.ping.toString() + 'ms').padEnd(10)}\`\n`
-        respStr += `**\`RAM Usage \`** \`${(ram.toString() + 'mb').padEnd(10)}\`\n`
-        respStr += `**\`Uptime    \`** \`${(formatTime(Math.floor(interaction.client.uptime / 1000))).padEnd(10)}\``
+        let respStr =
+            `**\`Servers   \`** \`${interaction.client.guilds.cache.size.toString().padEnd(10)}\`
+        **\`Users     \`** \`${interaction.client.guilds.cache.reduce((a, b) => a + b.memberCount, 0).toString().padEnd(10)}\`
+        **\`Latency   \`** \`${(interaction.client.ws.ping.toString() + 'ms').padEnd(10)}\`
+        **\`RAM Usage \`** \`${(ram.toString() + 'mb').padEnd(10)}\`
+        **\`Uptime    \`** \`${(formatTime(Math.floor(interaction.client.uptime / 1000))).padEnd(10)}\``
 
-        // Create and send the embed
-        const embed = new EmbedBuilder()
-            .setColor(0x1089DF)
-            .setTitle('BOT STATS')
-            .setDescription(respStr);
-        return interaction.editReply({ embeds: [embed], ephemeral: true });
+        await embedMessage(interaction, 'Bot Stats', respStr, false);
     },
 };

@@ -1,3 +1,4 @@
+const embedMessage = require('../utility/embed message');
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, SelectMenuBuilder } = require('discord.js');
 
 // contests command to view ongoing and upcoming coding contests
@@ -8,14 +9,8 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply();
 
-        // Create the embed
-        const embed = new EmbedBuilder()
-            .setColor(0x1089DF)
-            .setTitle('CODING CONTESTS')
-            .setURL('https://github.com/roshan1337d/coding-contests-companion')
-            .setDescription('Select a contest platform using the selection box below. CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, HackerEarth, and Google KickStart are the currently available platforms. Support for more platforms coming soon :sparkles:');
-
-        // Create the selection box
+        // Create the embed and selection box
+        const embed = await embedMessage(interaction, 'CODING CONTESTS', 'Select a contest platform using the selection box below. CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, HackerEarth, and Google KickStart are the currently available platforms. Support for more platforms coming soon :sparkles:', false, 'https://github.com/roshan1337d/coding-contests-companion', true);
         const row = new ActionRowBuilder()
             .addComponents(
                 new SelectMenuBuilder()

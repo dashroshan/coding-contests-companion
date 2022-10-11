@@ -15,12 +15,13 @@ I am open to, and grateful for any contributions made by the community to help d
 
 | File or Folder | Use|
 | --- | --- |
-| index.js | Main entry file which initializes everything and starts the bot|
+| index.js | Main entry file which initializes everything and starts the bot |
 | deploy.js | Push all the slash commands to discord |
 | commands | All the slash commands |
 | interactions | All the interaction hooks for things like button press, select change etc |
 | database | The mongo.js contains all the database operations, and the schema folder contains the document schemas |
-| loops | The contests scraping.js file fetches the latest contest details from various platforms, contest message.js file sends the contest notifications, and problem message.js file send the daily problems |
+| loops | The contests scraping.js file fetches the latest contest details from various platforms, contest message.js file sends the contest notifications, problem message.js file send the daily problems, and changing activity.js file changes the bot activity every 15 seconds |
+| utility | The embed message.js file sends or returns embed messages, joining message.js file sends a message on joining a new server |
 
 # Setup Instructions
 
