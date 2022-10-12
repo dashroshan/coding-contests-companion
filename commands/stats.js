@@ -24,12 +24,11 @@ module.exports = {
 
         // Stats data for the embed body
         let ram = ((process.memoryUsage().heapUsed / 1024 / 1024) + (process.memoryUsage().heapTotal / 1024 / 1024)).toFixed(2);
-        let respStr =
-            `**\`Servers   \`** \`${interaction.client.guilds.cache.size.toString().padEnd(10)}\`
-        **\`Users     \`** \`${interaction.client.guilds.cache.reduce((a, b) => a + b.memberCount, 0).toString().padEnd(10)}\`
-        **\`Latency   \`** \`${(interaction.client.ws.ping.toString() + 'ms').padEnd(10)}\`
-        **\`RAM Usage \`** \`${(ram.toString() + 'mb').padEnd(10)}\`
-        **\`Uptime    \`** \`${(formatTime(Math.floor(interaction.client.uptime / 1000))).padEnd(10)}\``
+        let respStr = `**\`Servers   \`** \`${interaction.client.guilds.cache.size.toString().padEnd(10)}\`
+**\`Users     \`** \`${interaction.client.guilds.cache.reduce((a, b) => a + b.memberCount, 0).toString().padEnd(10)}\`
+**\`Latency   \`** \`${(interaction.client.ws.ping.toString() + 'ms').padEnd(10)}\`
+**\`RAM Usage \`** \`${(ram.toString() + 'mb').padEnd(10)}\`
+**\`Uptime    \`** \`${(formatTime(Math.floor(interaction.client.uptime / 1000))).padEnd(10)}\``
 
         await embedMessage(interaction, 'BOT STATS', respStr, false);
     },
