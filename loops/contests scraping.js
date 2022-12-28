@@ -12,7 +12,7 @@ async function codeChef() {
         let name = c["contest_name"];
         let url = "https://www.codechef.com/" + c["contest_code"]
         let start = Math.floor((new Date(c["contest_start_date_iso"])).getTime() / 1000);
-        let duration = parseInt(c["contest_duration"], 10) * 60;
+        let duration = (parseInt(c["contest_duration"], 10) || 0) * 60;
         return { name, url, start, duration };
     });
     return processedData;
