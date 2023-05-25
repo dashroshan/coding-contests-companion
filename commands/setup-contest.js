@@ -50,7 +50,7 @@ module.exports = {
                     .setLabel('Notifications')
                     .setStyle(ButtonStyle.Secondary),
             );
-        const embed = await embedMessage(interaction,'Wish to get notified about coding contests?','Click the **Notifications** button below to get a role which will be pinged whenever any coding contest on CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, HackerEarth, or Google KickStart is about to start. Click it again to opt-out anytime.',false,'https://github.com/roshan1337d/coding-contests-companion',true);
+        const embed = await embedMessage(interaction,'Wish to get notified about coding contests?','Click the **Notifications** button below to get a role which will be pinged whenever any coding contest on CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, HackerEarth are about to start. Click it again to opt-out anytime.',false,'https://github.com/roshan1337d/coding-contests-companion',true);
 
         // Save server and channel data to db and send a confirmation message
         await interaction.client.database.saveContestChannel(interaction.guildId, channel.id, role.id);

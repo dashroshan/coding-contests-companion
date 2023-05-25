@@ -86,34 +86,6 @@ async function atCoder() {
     return Array.from(array);
 }
 
-// Get contests from Google KickStart
-async function kickStart() {
-    const browser = await puppeteer.launch()
-    const page = await browser.newPage()
-    await page.goto('https://codingcompetitions.withgoogle.com/kickstart/schedule')
-    await page.waitForSelector('.schedule-row')
-    const processedData = await page.evaluate(() => {
-        const upComing = Array.from(document.body.querySelectorAll(".schedule-row.schedule-row__upcoming"))
-        let array = []
-        upComing.forEach(contest => {
-            let allCells = Array.from(contest.children)
-            let data = allCells.map(
-                eachCell =>
-                    eachCell.children[0].href ? eachCell.children[0].href : eachCell.children[0].innerHTML
-            )
-            const name = data[0]
-            const startDateUTC = data[1] + " UTC"
-            const start = new Date(startDateUTC).getTime() / 1000
-            const url = 'https://codingcompetitions.withgoogle.com/kickstart/schedule';
-            const duration = (data[3].split(" ")[0]) * 3600
-            array.push({ name, url, start, duration })
-        })
-        return array
-    })
-    await browser.close()
-    return processedData
-}
-
 // Get contests from HackerEarth
 async function hackerEarth() {
     const res = await axios.get('https://www.hackerearth.com/chrome-extension/events', headers);
@@ -133,6 +105,23 @@ async function hackerEarth() {
     return processedData;
 }
 
+// Get contests from GeeksforGeeks
+async function geeksforgeeks() {
+    const res = await axios.get(" https://practiceapi.geeksforgeeks.org/api/vr/events/?page_number=1&sub_type=all&type=contest" , headers)
+    const futureContests = res.data["results"]["upcoming"];
+    let processedData = futureContests.map(c => {
+        let name = c["name"]
+        let url =  "https://practice.geeksforgeeks.org/contest/"+c["slug"]
+        let start = Math.floor((new Date(c["start_time"])).getTime() / 1000);
+        const endTimeSeconds = new Date(c["end_time"]).getTime() / 1000;
+        const startTimeSeconds = new Date(c["start_time"]).getTime() / 1000;
+        let duration = endTimeSeconds-startTimeSeconds;
+
+        return {name , url , start , duration};
+    })
+    return processedData;
+}
+
 // Save new contests to the db and delete the finished ones
 async function contests(db) {
     await db.saveContests('codechef', await codeChef());
@@ -141,7 +130,7 @@ async function contests(db) {
     await db.saveContests('codeforces', await codeForces());
     await db.saveContests('atcoder', await atCoder());
     await db.saveContests('hackerearth', await hackerEarth());
-    await db.saveContests('kickstart', await kickStart());
+    await db.saveContests('geeksforgeeks' , await geeksforgeeks());
     await db.deleteFinishedContests();
 }
 

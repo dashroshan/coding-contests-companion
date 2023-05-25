@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRowBuilder, SelectMenuBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 // Data about the different supported platforms
 const platforms = {
@@ -8,7 +8,7 @@ const platforms = {
     'codeforces': { 'name': 'CodeForces', 'url': 'https://codeforces.com', 'thumb': 'https://i.imgur.com/EVmQOW5.jpg' },
     'atcoder': { 'name': 'AtCoder', 'url': 'https://atcoder.jp', 'thumb': 'https://i.imgur.com/mfB9fEI.jpg' },
     'hackerearth': { 'name': 'HackerEarth', 'url': 'https://www.hackerearth.com', 'thumb': 'https://i.imgur.com/CACYwoz.jpg' },
-    'kickstart': { 'name': 'Google KickStart', 'url': 'https://codingcompetitions.withgoogle.com/kickstart', 'thumb': 'https://i.imgur.com/lQWWQ2f.jpg' }
+    'geeksforgeeks' : {'name': 'Geeksforgeeks' , 'url': 'https://practice.geeksforgeeks.org/' , 'thumb': 'https://i.imgur.com/x4cTR1N.jpg'}
 }
 
 // Total contests to show per page
@@ -89,7 +89,7 @@ async function contestsPaginate(interaction) {
     // Select menu for switching to other platforms
     const row2 = new ActionRowBuilder()
         .addComponents(
-            new SelectMenuBuilder()
+            new StringSelectMenuBuilder()
                 .setCustomId('contestsSelect')
                 .setPlaceholder('Select contest platform')
                 .addOptions(
@@ -124,10 +124,10 @@ async function contestsPaginate(interaction) {
                         emoji: { id: '1025657011360243782' },
                     },
                     {
-                        label: 'Google KickStart',
-                        value: 'kickstart',
-                        emoji: { id: '1026701223224688711' },
-                    },
+                        label : 'Geeksforgeeks',
+                        value : 'geeksforgeeks',
+                        emoji: { id: '1110941777260711986' }
+                    }
                 ),
         );
 
