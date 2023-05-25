@@ -1,11 +1,11 @@
-const embedMessage = require("../utility/embed message");
-const { SlashCommandBuilder } = require("discord.js");
+const embedMessage = require('../utility/embed message');
+const { SlashCommandBuilder } = require('discord.js');
 
 // help command for the user guide
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("help")
-        .setDescription("User guide on how to use the bot"),
+        .setName('help')
+        .setDescription('User guide on how to use the bot'),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
 
@@ -23,14 +23,8 @@ Use the \`/setup-problem\` command and select the channel where it should send t
 **[Stop Running Services](http://ignore-the-link.com)**
 Use the \`/stop\` command and select the feature service that you want to stop for your server. Optional: for the contest notifications, you may also want to delete the role it used to ping, and the role managing embed.
 
-Need more help? **[Join the support server](https://discord.gg/9sDtq74DMn)**`;
+Need more help? **[Join the support server](https://discord.gg/9sDtq74DMn)**`
 
-        await embedMessage(
-            interaction,
-            "HOW TO USE THE BOT",
-            respStr,
-            false,
-            "https://github.com/roshan1337d/coding-contests-companion"
-        );
+        await embedMessage(interaction, 'HOW TO USE THE BOT', respStr, false, 'https://github.com/roshan1337d/coding-contests-companion');
     },
 };
