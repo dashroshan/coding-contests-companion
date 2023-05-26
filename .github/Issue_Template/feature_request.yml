@@ -1,27 +1,20 @@
-name: ​🐞 Bug
-description: Report an issue to help us improve the project.
-title: "[BUG] <write a small description here>"
-labels: ["bug", "goal: fix"]
+name: Feature Request 💡
+description: Have any new idea or new feature? Please suggest!
+title: "[Feature] <write a small description here>"
+labels: ["enhancement", "goal: addition"]
 body:
   - type: textarea
+    id: description
     attributes:
       label: Description
-      id: description
-      description: A brief description of the issue or bug you are facing, also include what you tried and what didn't work.
+      description: A clear and concise description of any alternative solution or features you've considered.
     validations:
-      required: false
+      required: true
   - type: textarea
+    id: screenshots
     attributes:
       label: Screenshots
-      id: screenshots
       description: Please add screenshots if applicable
-    validations:
-      required: false
-  - type: textarea
-    attributes:
-      label: Any additional information?
-      id: extrainfo
-      description: Any additional information or Is there anything we should know about this bug?
     validations:
       required: false
   - type: checkboxes
