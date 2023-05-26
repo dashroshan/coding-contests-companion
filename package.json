@@ -15,5 +15,8 @@
         "jsdom": "^20.0.0",
         "mongoose": "^6.6.4",
         "puppeteer": "^18.0.5"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.22"
     }
 }
