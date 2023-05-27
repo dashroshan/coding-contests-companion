@@ -91,7 +91,7 @@ module.exports = {
         const embed = await embedMessage(
             interaction,
             "Wish to get notified about coding contests?",
-            "Click the **Get Notified** button below to get a role which will be pinged whenever any coding contest on CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, HackerEarth, or Google KickStart is about to start. Click on **Stop Notifications** again to opt-out anytime.",
+            "Click the **Get Notified** button below to get a role which will be pinged whenever any coding contest on CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, HackerEarth, or GeeksForGeeks is about to start. Click on **Stop Notifications** again to opt-out anytime.",
             false,
             "https://github.com/roshan1337d/coding-contests-companion",
             true
