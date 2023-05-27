@@ -10,7 +10,7 @@ module.exports = {
         await interaction.deferReply();
 
         // Create the embed and selection box
-        const embed = await embedMessage(interaction, 'CODING CONTESTS', 'Select a contest platform using the selection box below. CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, HackerEarth are the currently available platforms. Support for more platforms coming soon :sparkles:', false, 'https://github.com/roshan1337d/coding-contests-companion', true);
+        const embed = await embedMessage(interaction, 'CODING CONTESTS', 'Select a contest platform using the selection box below. CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, HackerEarth and GeeksforGeeks are the currently available platforms. Support for more platforms coming soon :sparkles:', false, 'https://github.com/roshan1337d/coding-contests-companion', true);
         const row = new ActionRowBuilder()
             .addComponents(
                 new StringSelectMenuBuilder()
