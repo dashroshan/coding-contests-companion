@@ -59,6 +59,15 @@ A config.json file present in the same location as the index.js file contains al
     ```sh
     https://discord.com/oauth2/authorize?client_id={APPLICATION_ID_HERE}&permissions=268435456&scope=bot%20applications.commands
     ```
+5. From the dropdown, you need to choose an existing server from the options.
+
+6. But if there are none to be selected from the dropdown, click on [ Discord Website. ](https://discord.com/) to login or create a discord account. Then Click on the `+` tab on the left menu to add a New Server.
+
+7. Switch back to the link below and refresh, from the dropdown select the newly created server.
+
+    ```sh
+        https://discord.com/oauth2/authorize?client_id={APPLICATION_ID_HERE}&permissions=268435456&scope=bot%20applications.commands
+    ```
 
 ## 4. Other config.json Parameters
 
@@ -72,5 +81,17 @@ A config.json file present in the same location as the index.js file contains al
 
 ## 5. Finishing Up
 
-1. Deploy the slash commands once using `node deploy.js`
-2. Run the bot using `node index.js`
+1. Deploy the slash commands once using `node deploy.js`, you will see this `Successfully registered server application commands!` if successful.
+
+2. Run the bot using `node index.js` this shows up if successful 
+    ```
+        Connected to MongoDB.
+        Notifications loop started.
+        Daily problem loop started.
+        Scraping loop started.
+        Bot is online.
+    ```
+
+3. Go back to your discord account, on the chat box type the `/` and choose different files from the commands folder in VS code
+   find a screenshot below. [Discord Bot.](https://imgur.com/a/Hfm06SE)
+
