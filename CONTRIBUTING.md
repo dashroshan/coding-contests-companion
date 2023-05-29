@@ -1,4 +1,11 @@
 I am open to, and grateful for any contributions made by the community to help develop this discord bot. Please go through this document once before you contribute or open a pull request.
+<div align="center">
+  <img src="https://img.shields.io/github/issues/roshan1337d/coding-contests-companion?style=for-the-badge" />
+  <img src="https://img.shields.io/github/issues-closed-raw/roshan1337d/coding-contests-companion?color=blue&style=for-the-badge" />
+  <img src="https://img.shields.io/github/issues-pr/roshan1337d/coding-contests-companion?color=green&style=for-the-badge" />
+  <img src="https://img.shields.io/github/issues-pr-closed-raw/roshan1337d/coding-contests-companion?style=for-the-badge" />
+  <br>
+</div>
 
 # General Information
 
