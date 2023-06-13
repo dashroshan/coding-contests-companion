@@ -1,7 +1,12 @@
 <img src='https://i.imgur.com/3aNn4U4.png' height='100px'/>
 <h1>Coding Contests Companion</h2>
 <a href="https://discord.com/api/oauth2/authorize?client_id=1023627528860086332&permissions=268435456&scope=bot%20applications.commands"><img src = "https://img.shields.io/badge/Invite Bot-Page?style=flat&color=1CA2F1" height = 30px></a> <a href="https://discord.gg/9sDtq74DMn"><img src = "https://img.shields.io/badge/Support Server-Page?style=flat&color=1CA2F1" height = 30px></a>
-
+<div align="left">
+<img src="https://img.shields.io/github/repo-size/roshan1337d/coding-contests-companion?style=for-the-badge" />
+<img src="https://img.shields.io/github/forks/roshan1337d/coding-contests-companion?style=for-the-badge" />
+  <img src="https://img.shields.io/github/stars/roshan1337d/coding-contests-companion?color=p&style=for-the-badge" />
+  </div>
+  
 ## About
 
 Coding Contests Companion is a discord bot that displays all ongoing and upcoming coding contests from CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, Google KickStart, and HackerEarth in one place in your discord server. You can set up an embed for your members to take a role themselves which will be pinged an hour before any contest is about to start with the contest details. **Never miss a coding contest again!**
