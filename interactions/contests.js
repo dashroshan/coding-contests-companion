@@ -8,7 +8,8 @@ const platforms = {
     'codeforces': { 'name': 'CodeForces', 'url': 'https://codeforces.com', 'thumb': 'https://i.imgur.com/EVmQOW5.jpg' },
     'atcoder': { 'name': 'AtCoder', 'url': 'https://atcoder.jp', 'thumb': 'https://i.imgur.com/mfB9fEI.jpg' },
     'hackerearth': { 'name': 'HackerEarth', 'url': 'https://www.hackerearth.com', 'thumb': 'https://i.imgur.com/CACYwoz.jpg' },
-    'geeksforgeeks': { 'name': 'Geeksforgeeks', 'url': 'https://practice.geeksforgeeks.org', 'thumb': 'https://i.imgur.com/ejRKy7l.jpg' }
+    'geeksforgeeks': { 'name': 'Geeksforgeeks', 'url': 'https://practice.geeksforgeeks.org', 'thumb': 'https://i.imgur.com/ejRKy7l.jpg' },
+    'codingninjas': { 'name': 'Coding Ninjas', 'url': 'https://www.codingninjas.com/codestudio/contests/', 'thumb': 'https://i.imgur.com/X9WJiRv.png'}
 }
 
 // Total contests to show per page
@@ -127,6 +128,11 @@ async function contestsPaginate(interaction) {
                         label: 'Geeksforgeeks',
                         value: 'geeksforgeeks',
                         emoji: { id: '1110941777260711986' }
+                    },
+                    {
+                        label: 'Coding Ninjas',
+                        value: 'codingninjas',
+                        emoji: { id: '1118598468978618518' }
                     }
                 ),
         );

@@ -10,7 +10,7 @@ module.exports = {
         await interaction.deferReply();
 
         // Create the embed and selection box
-        const embed = await embedMessage(interaction, 'CODING CONTESTS', 'Select a contest platform using the selection box below. CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, HackerEarth and GeeksforGeeks are the currently available platforms. Support for more platforms coming soon :sparkles:', false, 'https://github.com/roshan1337d/coding-contests-companion', true);
+        const embed = await embedMessage(interaction, 'CODING CONTESTS', 'Select a contest platform using the selection box below. CodeChef, LeetCode, HackerRank, CodeForces, AtCoder, HackerEarth, GeeksforGeeks and Coding Ninjas are the currently available platforms. Support for more platforms coming soon :sparkles:', false, 'https://github.com/roshan1337d/coding-contests-companion', true);
         const row = new ActionRowBuilder()
             .addComponents(
                 new StringSelectMenuBuilder()
@@ -51,6 +51,11 @@ module.exports = {
                             label : 'Geeksforgeeks',
                             value : 'geeksforgeeks',
                             emoji: { id:'1110941777260711986'}
+                        },
+                        {
+                            label: 'Coding Ninjas',
+                            value: 'codingninjas',
+                            emoji: { id: '1118598468978618518' }
                         }
                     ),
             );
