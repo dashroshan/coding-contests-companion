@@ -9,7 +9,7 @@ const platforms = {
     'atcoder': { 'name': 'AtCoder', 'url': 'https://atcoder.jp', 'thumb': 'https://i.imgur.com/mfB9fEI.jpg' },
     'hackerearth': { 'name': 'HackerEarth', 'url': 'https://www.hackerearth.com', 'thumb': 'https://i.imgur.com/CACYwoz.jpg' },
     'geeksforgeeks': { 'name': 'Geeksforgeeks', 'url': 'https://practice.geeksforgeeks.org', 'thumb': 'https://i.imgur.com/ejRKy7l.jpg' },
-    'codingninjas': { 'name': 'Coding Ninjas', 'url': 'https://www.codingninjas.com/codestudio/contests/', 'thumb': 'https://i.imgur.com/X9WJiRv.png'}
+    'codingninjas': { 'name': 'Coding Ninjas', 'url': 'https://www.codingninjas.com', 'thumb': 'https://i.imgur.com/X9WJiRv.png'}
 }
 
 // Total contests to show per page
