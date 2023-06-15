@@ -7,7 +7,8 @@ const platforms = {
     'hackerrank': 'HackerRank',
     'codeforces': 'CodeForces',
     'atcoder': 'AtCoder',
-    'geeksforgeeks': 'Geeksforgeeks'
+    'geeksforgeeks': 'Geeksforgeeks',
+    'codingninjas': 'Coding Ninjas'
 }
 
 // Send notifications for the contests starting soon
@@ -25,7 +26,7 @@ async function notify(client) {
         if (i !== contests.length - 1) respStr += "\n\n";
     }
 
-    // Create the emebd to be sent to all channels
+    // Create the embed to be sent to all channels
     const embed = new EmbedBuilder()
         .setColor(0x1089DF)
         .setTitle((contests.length === 1) ? 'CODING CONTEST STARTING SOON' : 'CODING CONTESTS STARTING SOON')

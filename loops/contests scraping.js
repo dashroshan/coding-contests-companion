@@ -122,6 +122,24 @@ async function geeksforgeeks() {
     return processedData;
 }
 
+// Get contests for coding ninjas
+async function codingninjas() {
+    const res = await axios.get("https://api.codingninjas.com/api/v4/public_section/contest_list", headers)
+    const contests = res.data["data"]["events"];
+
+    let processedData = contests.map(c => {
+        let name = c["name"]
+        let url = "https://www.codingninjas.com/codestudio/contests/"+c["slug"]
+        let start = c["event_start_time"];
+        const endTimeSeconds = c["event_end_duration"]
+        const startTimeSeconds = c["event_start_duration"]
+        let duration = endTimeSeconds-startTimeSeconds;
+
+        return {name , url , start , duration};
+    })
+    return processedData
+}
+
 // Save new contests to the db and delete the finished ones
 async function contests(db) {
     await db.saveContests('codechef', await codeChef());
@@ -130,7 +148,8 @@ async function contests(db) {
     await db.saveContests('codeforces', await codeForces());
     await db.saveContests('atcoder', await atCoder());
     await db.saveContests('hackerearth', await hackerEarth());
-    await db.saveContests('geeksforgeeks' , await geeksforgeeks());
+    await db.saveContests('geeksforgeeks', await geeksforgeeks());
+    await db.saveContests('codingninjas', await codingninjas());
     await db.deleteFinishedContests();
 }
 
