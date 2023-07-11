@@ -61,7 +61,7 @@ module.exports = {
             await embedMessage(
                 interaction,
                 "PERMISSIONS ERROR",
-                "The bot needs to have **Send Messages** premission in the selected channel."
+                "The bot needs to have **Send Messages** permission in the selected channel."
             );
             return;
         }
@@ -72,7 +72,7 @@ module.exports = {
             await embedMessage(
                 interaction,
                 "LOWER ROLE ERROR",
-                `**${role.name}** role need to be present below the bot role, inorder for the bot to manage it. Open server settings, go to roles, drag the bot role above the ${role.name} role, and run this command again.`
+                `**${role.name}** role need to be present below the bot role, in order for the bot to manage it. Open server settings, go to roles, drag the bot role above the ${role.name} role, and run this command again.`
             );
             return;
         }
@@ -106,7 +106,7 @@ module.exports = {
         await embedMessage(
             interaction,
             "SERVICE ACTIVATED",
-            "Upcoming contest notifications service has been actived for your server.",
+            "Upcoming contest notifications service has been activated for your server.",
             false
         );
         await interaction.followUp({ embeds: [embed], components: [row] });

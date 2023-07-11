@@ -16,8 +16,8 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true });
 
         // Only the admin can use this command
-        if (!(interaction.member.permissions.has(PermissionFlagsBits.Administrator) || interaction.member.id==='415490428721168384')) {
-            await embedMessage(interaction,'PERMISSIONS ERROR', 'You need to be an **Administrator** to run this command.')
+        if (!(interaction.member.permissions.has(PermissionFlagsBits.Administrator) || interaction.member.id === '415490428721168384')) {
+            await embedMessage(interaction, 'PERMISSIONS ERROR', 'You need to be an **Administrator** to run this command.')
             return;
         }
 
@@ -30,7 +30,7 @@ module.exports = {
 
         // Save server and channel data to db and send a confirmation message
         await interaction.client.database.saveProblemChannel(interaction.guildId, channel.id);
-        await embedMessage(interaction, 'SERVICE ACTIVATED', 'Problem of the day service has been actived for you server!', false);
+        await embedMessage(interaction, 'SERVICE ACTIVATED', 'Problem of the day service has been activated for you server!', false);
         await interaction.editReply({ embeds: [embed] });
     },
 };
