@@ -20,7 +20,7 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true });
 
         // Only the admin can use this command
-        if (!(interaction.member.permissions.has(PermissionFlagsBits.Administrator) || interaction.member.id==='415490428721168384')) {
+        if (!(interaction.member.permissions.has(PermissionFlagsBits.Administrator) || interaction.member.id === '415490428721168384')) {
             await embedMessage(interaction, 'PERMISSIONS ERROR', 'You need to be an **Administrator** to run this command!')
             return;
         }
@@ -39,7 +39,7 @@ module.exports = {
             if (!(await interaction.client.database.deleteProblemServer(interaction.guildId)))
                 await embedMessage(interaction, 'INACTIVE SERVICE', 'Problem of the day service was not active for you server.');
             else
-                await embedMessage(interaction, 'SERVICE STOPPED', 'Problem of the day service stopped. Your server will no longer recieve daily problems.',false);
+                await embedMessage(interaction, 'SERVICE STOPPED', 'Problem of the day service stopped. Your server will no longer receive daily problems.', false);
         }
     },
 };
