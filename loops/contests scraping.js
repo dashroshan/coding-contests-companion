@@ -2,7 +2,7 @@ const axios = require("axios");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const puppeteer = require("puppeteer");
-const headers = { 'headers': { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36' } };
+const headers = { 'headers': { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate, br', 'Connection': 'keep-alive'  } };
 
 // Get contests from CodeChef
 async function codeChef() {
@@ -142,14 +142,46 @@ async function codingninjas() {
 
 // Save new contests to the db and delete the finished ones
 async function contests(db) {
-    await db.saveContests('codechef', await codeChef());
-    await db.saveContests('leetcode', await leetCode());
-    await db.saveContests('hackerrank', await hackerRank());
-    await db.saveContests('codeforces', await codeForces());
-    await db.saveContests('atcoder', await atCoder());
-    await db.saveContests('hackerearth', await hackerEarth());
-    await db.saveContests('geeksforgeeks', await geeksforgeeks());
-    await db.saveContests('codingninjas', await codingninjas());
+    try {
+        await db.saveContests('codechef', await codeChef());
+    } catch (error) {
+        console.log("Codechef scraping failed - " + error)
+    }
+    try {
+        await db.saveContests('leetcode', await leetCode());
+    } catch (error) {
+        console.log("Leetcode scraping failed - " + error)
+    }
+    try {
+        await db.saveContests('hackerrank', await hackerRank());
+    } catch (error) {
+        console.log("Hackerrank scraping failed - " + error)
+    }
+    try {
+        await db.saveContests('codeforces', await codeForces());
+    } catch (error) {
+        console.log("Codeforcees scraping failed - " + error)
+    }
+    try {
+        await db.saveContests('atcoder', await atCoder());
+    } catch (error) {
+        console.log("Atcoder scraping failed - " + error)
+    }
+    try {
+        await db.saveContests('hackerearth', await hackerEarth());
+    } catch (error) {
+        console.log("Hackerearth scraping failed - " + error)
+    }
+    try {
+        await db.saveContests('geeksforgeeks', await geeksforgeeks());
+    } catch (error) {
+        console.log("Geeksforgeeks scraping failed - " + error)
+    }
+    try {
+        await db.saveContests('codingninjas', await codingninjas());
+    } catch (error) {
+        console.log("Codingninjas scraping failed - " + error)
+    }
     await db.deleteFinishedContests();
 }
 
