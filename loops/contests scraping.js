@@ -112,9 +112,9 @@ async function geeksforgeeks() {
     let processedData = futureContests.map(c => {
         let name = c["name"]
         let url =  "https://practice.geeksforgeeks.org/contest/"+c["slug"]
-        let start = Math.floor((new Date(c["start_time"])).getTime() / 1000);
-        const endTimeSeconds = new Date(c["end_time"]).getTime() / 1000;
-        const startTimeSeconds = new Date(c["start_time"]).getTime() / 1000;
+        let start = Math.floor(((new Date(c["start_time"])).getTime() - 19800000)/ 1000);
+        const endTimeSeconds = (new Date(c["end_time"]).getTime() - 19800000) / 1000;
+        const startTimeSeconds = (new Date(c["start_time"]).getTime() - 19800000) / 1000;
         let duration = endTimeSeconds-startTimeSeconds;
 
         return {name , url , start , duration};
