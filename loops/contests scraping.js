@@ -191,33 +191,16 @@ async function contests(db) {
         console.log("Codingninjas scraping failed - " + error)
     }
     await db.deleteFinishedContests();
-}
-
-// If scraping fails for some reason, increase the delay until next try by 10
-// times to avoid spamming the server and being rate limited
-let retryWait = 5000;
-async function updateContestsLoop(db) {
-    try {
-        await contests(db);
-        retryWait = 5000;
-    } catch (error) {
-        console.log("Scraping failed: " + error);
-        console.log(`Retrying to scrape after ${Math.floor(retryWait / 1000)} seconds...`);
-        setTimeout(async () => {
-            console.log("Retrying to scrape...");
-            retryWait *= 10;
-            await updateContestsLoop(db);
-        }, retryWait);
-    }
+    console.log(`DB updated with contests at ${new Date()}`);
 }
 
 // Run the notify function once on load, and then every 1 hour
 async function updateContests(db) {
     console.log("Scraping loop started.");
-    await updateContestsLoop(db);
+    await contests(db);
     setInterval(async () => {
-        await updateContestsLoop(db);
-    }, 3600000);
+        await contests(db);
+    }, THREE_HOURS_IN_MS);
 }
 
 module.exports = updateContests;
