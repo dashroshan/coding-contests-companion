@@ -1,8 +1,10 @@
 const axios = require("axios");
 const jsdom = require("jsdom");
+const crypto = require('crypto');
+const { codeforcesKey, codeforcesSecret } = require('./config.json');
 const { JSDOM } = jsdom;
 const puppeteer = require("puppeteer");
-const headers = { 'headers': { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'  } };
+const headers = { 'headers': { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36' } };
 
 // Get contests from CodeChef
 async function codeChef() {
@@ -48,7 +50,13 @@ async function hackerRank() {
 
 // Get contests from CodeForces
 async function codeForces() {
-    const res = await axios.get('https://codeforces.com/api/contest.list', headers)
+    const random = Math.floor(Math.random() * 899999) + 100000;
+    const currentTime = Math.floor(Date.now() / 1000);
+    let hashRaw = `${random}/contest.list?apiKey=${codeforcesKey}&time=${currentTime}#${codeforcesSecret}`;
+    let hash = crypto.createHash('sha512').update(hashRaw).digest('hex');
+    let url = `https://codeforces.com/api/contest.list?apiKey=${codeforcesKey}&time=${currentTime}&apiSig=${random + hash}`;
+
+    const res = await axios.get(url, headers)
     const futureContests = res.data["result"].filter(e => (e["phase"] === "BEFORE" || e["phase"] === "CODING"));
     let processedData = futureContests.map(c => {
         let name = c["name"];
@@ -107,17 +115,17 @@ async function hackerEarth() {
 
 // Get contests from GeeksforGeeks
 async function geeksforgeeks() {
-    const res = await axios.get(" https://practiceapi.geeksforgeeks.org/api/vr/events/?page_number=1&sub_type=all&type=contest" , headers)
+    const res = await axios.get(" https://practiceapi.geeksforgeeks.org/api/vr/events/?page_number=1&sub_type=all&type=contest", headers)
     const futureContests = res.data["results"]["upcoming"];
     let processedData = futureContests.map(c => {
         let name = c["name"]
-        let url =  "https://practice.geeksforgeeks.org/contest/"+c["slug"]
-        let start = Math.floor(((new Date(c["start_time"])).getTime() - 19800000)/ 1000);
+        let url = "https://practice.geeksforgeeks.org/contest/" + c["slug"]
+        let start = Math.floor(((new Date(c["start_time"])).getTime() - 19800000) / 1000);
         const endTimeSeconds = (new Date(c["end_time"]).getTime() - 19800000) / 1000;
         const startTimeSeconds = (new Date(c["start_time"]).getTime() - 19800000) / 1000;
-        let duration = endTimeSeconds-startTimeSeconds;
+        let duration = endTimeSeconds - startTimeSeconds;
 
-        return {name , url , start , duration};
+        return { name, url, start, duration };
     })
     return processedData;
 }
@@ -129,13 +137,13 @@ async function codingninjas() {
 
     let processedData = contests.map(c => {
         let name = c["name"]
-        let url = "https://www.codingninjas.com/codestudio/contests/"+c["slug"]
+        let url = "https://www.codingninjas.com/codestudio/contests/" + c["slug"]
         let start = c["event_start_time"];
         const endTimeSeconds = c["event_end_duration"]
         const startTimeSeconds = c["event_start_duration"]
-        let duration = endTimeSeconds-startTimeSeconds;
+        let duration = endTimeSeconds - startTimeSeconds;
 
-        return {name , url , start , duration};
+        return { name, url, start, duration };
     })
     return processedData
 }

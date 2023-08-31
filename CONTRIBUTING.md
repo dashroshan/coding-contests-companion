@@ -42,6 +42,8 @@ A config.json file present in the same location as the index.js file contains al
     "tokenProd": "production_bot_token",
     "mongourlTest": "testing_mongodb_url/db",
     "mongourlProd": "production_mongodb_url/db",
+    "codeforcesKey": "codeforces_api_key",
+    "codeforcesSecret": "codeforces_api_secret",
     "isProduction": false
 }
 ```
