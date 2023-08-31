@@ -194,13 +194,13 @@ async function contests(db) {
     console.log(`DB updated with contests at ${new Date()}`);
 }
 
-// Run the notify function once on load, and then every 1 hour
+// Run the notify function once on load, and then every 6 hour
 async function updateContests(db) {
     console.log("Scraping loop started.");
     await contests(db);
     setInterval(async () => {
         await contests(db);
-    }, THREE_HOURS_IN_MS);
+    }, 21600000);
 }
 
 module.exports = updateContests;
