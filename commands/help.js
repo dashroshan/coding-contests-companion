@@ -10,8 +10,8 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true });
 
         respStr = `**FOR EVERYONE**
-**[View All Contests](http://ignore-the-link.com)**
-Use the \`/contests\` command. Select any contest platform using the selection box present below the message sent by the bot, to view all its ongoing and upcoming contests.
+**[View Contests](http://ignore-the-link.com)**
+Use the \`/contests\` command. Select any contest platform using the selection box present below the message sent by the bot, to view all its ongoing and upcoming contests. If you want to view contests starting in X time, you can use the optional start field of the command.
 
 **FOR ADMIN ONLY**
 **[Setup Contest Notifications](http://ignore-the-link.com)**

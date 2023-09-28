@@ -44,6 +44,14 @@ module.exports.getContestsStartingSoon = async function () {
     return contests;
 }
 
+// Return an array of contests which start in coming X days
+module.exports.getContestsStartingInXDays = async function (days) {
+    let contests = await contestSchema
+        .find({ start: { $lte: (Math.floor(Date.now() / 1000) + days * 86400), $gte: Math.floor(Date.now() / 1000) } })
+        .sort({ start: 1 });
+    return contests;
+}
+
 // Delete the finished contests from the db
 module.exports.deleteFinishedContests = async function () {
     await contestSchema.deleteMany({ end: { $lte: Math.floor(Date.now() / 1000) } });
