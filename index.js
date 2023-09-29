@@ -5,11 +5,13 @@ const contestsScrapingLoop = require('./loops/contests scraping');
 const contestsMessageLoop = require('./loops/contests message');
 const problemMessageLoop = require('./loops/problem message');
 const joiningMessage = require('./utility/joining message');
-const { tokenTest, tokenProd, mongourlTest, mongourlProd, isProduction, tokenTelegram } = require('./config.json');
+const { tokenTest, tokenProd, mongourlTest, mongourlProd, isProduction, tokenTelegramProd, tokenTelegramTest, channelTelegramProd, channelTelegramTest } = require('./config.json');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, PermissionFlagsBits, ActivityType } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const TelegramBot = require('node-telegram-bot-api');
 
+const tokenTelegram = (isProduction) ? tokenTelegramProd : tokenTelegramTest;
+client.channelTelegram = (isProduction) ? channelTelegramProd : channelTelegramTest;
 client.telegramBot = new TelegramBot(tokenTelegram, { polling: true });
 
 // Initilize mongoDB connection

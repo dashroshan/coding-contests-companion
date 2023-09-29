@@ -44,6 +44,11 @@ module.exports.getContestsStartingSoon = async function () {
     return contests;
 }
 
+module.exports.getNextXContests = async function (x) {
+    let contests = await contestSchema.find({ notified: false }).sort({ start: 1 }).limit(x);
+    return contests;
+}
+
 // Return an array of contests which start in coming X days
 module.exports.getContestsStartingInXDays = async function (days) {
     let contests = await contestSchema

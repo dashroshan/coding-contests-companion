@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('discord.js');
-const { channelTelegram } = require("../config.json")
 
 // Data about the different supported platforms
 const platforms = {
@@ -9,32 +8,56 @@ const platforms = {
     'codeforces': 'CodeForces',
     'atcoder': 'AtCoder',
     'geeksforgeeks': 'Geeksforgeeks',
-    'codingninjas': 'Coding Ninjas'
+    'codingninjas': 'CodingNinjas',
+    'hackerearth': 'HackerEarth',
 }
 
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+function formatAMPM(date) {
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    let strTime = hours.toString().padStart(2, "0") + ':' + minutes.toString().padStart(2, "0") + ampm;
+    return strTime;
+}
 // Send notifications for the contests starting soon
 async function notify(client) {
     const contests = await client.database.getContestsStartingSoon();
     if (contests.length === 0) return; // No contests starting soon
 
+    const nextContests = await client.database.getNextXContests(5);
+
     // Format the information about the contests starting soon for the embed body
     let respStr = "";
-    let telegramStr = "🔥 Coding contest in an hour 🔥";
-    let telegramBtns = [];
-    for (let i = 0; i < contests.length; i++) {
-        let contestData = contests[i];
+    let telegramStr = `Coding contest${contests.length == 1 ? "" : "s"} starting soon.\nGood luck everyone 💪`;
+    for (let i = 0; i < contests.length + nextContests.length; i++) {
+        let contestData;
+        if (i == contests.length) telegramStr += `\n\n❇️❇️ NEXT ${nextContests.length} CONTESTS ❇️❇️`;
+        if (i >= contests.length)
+            contestData = nextContests[i - contests.length];
+        else
+            contestData = contests[i];
+
         let hours = Math.floor(contestData['duration'] / 3600);
         let mins = Math.floor((contestData['duration'] / 60) % 60);
         let time = `${hours} ${hours === 1 ? 'hour' : 'hours'}${mins === 0 ? '' : (' and ' + mins + ' minutes')}`;
-        telegramStr += `\n\n❇️ ${contestData['name']}\n🎲 ${platforms[contestData['platform']]}\n⏰ ${time}`;
-        telegramBtns.push({ text: `${platforms[contestData['platform']]} Contest`, url: contestData['url'] });
-        respStr += `**[${contestData['name']}](${contestData['url']})**\n:dart: **Platform:** ${platforms[contestData['platform']]}\n:calendar: **Start:** <t:${contestData['start']}:R>\n:stopwatch: **Duration:** ${time}`;
-        if (i !== contests.length - 1) respStr += "\n\n";
+        let date = new Date(contestData['start'] * 1000);
+        let formattedDate = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()} at ${formatAMPM(date)} IST`
+        telegramStr += `\n\n[${contestData['name']}](${contestData['url']})\n🎲 ${platforms[contestData['platform']]}\n📅 ${formattedDate}\n⏰ ${time}`;
+
+        if (i < contests.length) {
+            respStr += `**[${contestData['name']}](${contestData['url']})**\n:dart: **Platform:** ${platforms[contestData['platform']]}\n:calendar: **Start:** <t:${contestData['start']}:R>\n:stopwatch: **Duration:** ${time}`;
+            if (i !== contests.length - 1) respStr += "\n\n";
+        }
     }
 
     // Send message on telegram channel
-    client.telegramBot.sendMessage(channelTelegram, telegramStr, {
-        parse_mode: 'Markdown', reply_markup: { inline_keyboard: [telegramBtns] }
+    client.telegramBot.sendMessage(client.channelTelegram, telegramStr, {
+        parse_mode: 'Markdown', disable_web_page_preview: true
     });
 
     // Create the embed to be sent to all channels
