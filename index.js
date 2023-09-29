@@ -14,6 +14,8 @@ const tokenTelegram = (isProduction) ? tokenTelegramProd : tokenTelegramTest;
 client.channelTelegram = (isProduction) ? channelTelegramProd : channelTelegramTest;
 client.telegramBot = new TelegramBot(tokenTelegram, { polling: true });
 
+process.env.TZ = 'Asia/Kolkata'
+
 // Initilize mongoDB connection
 const mongoose = require('mongoose');
 client.database = require('./database/mongo.js');
