@@ -14,6 +14,7 @@
         "discord.js": "^14.8.0",
         "jsdom": "^20.0.0",
         "mongoose": "^6.6.4",
+        "node-telegram-bot-api": "^0.63.0",
         "nodemon": "^2.0.22",
         "puppeteer": "^18.0.5"
     },
