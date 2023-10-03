@@ -33,10 +33,10 @@ async function notify(client) {
 
     // Format the information about the contests starting soon for the embed body
     let respStr = "";
-    let telegramStr = `Coding contest${contests.length == 1 ? "" : "s"} starting soon.\nGood luck everyone 💪`;
+    let telegramStr = "❇️❇️ Coding contest starting soon ❇️❇️";
     for (let i = 0; i < contests.length + nextContests.length; i++) {
         let contestData;
-        if (i == contests.length) telegramStr += `\n\n❇️❇️ NEXT ${nextContests.length} CONTESTS ❇️❇️`;
+        if (i == contests.length) telegramStr += `\n\n❇️❇️ Next five scheduled contests ❇️❇️`;
         if (i >= contests.length)
             contestData = nextContests[i - contests.length];
         else
@@ -46,8 +46,8 @@ async function notify(client) {
         let mins = Math.floor((contestData['duration'] / 60) % 60);
         let time = `${hours} ${hours === 1 ? 'hour' : 'hours'}${mins === 0 ? '' : (' and ' + mins + ' minutes')}`;
         let date = new Date(contestData['start'] * 1000);
-        let formattedDate = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()} at ${formatAMPM(date)} IST`
-        telegramStr += `\n\n[${contestData['name']}](${contestData['url']})\n🎲 ${platforms[contestData['platform']]}\n📅 ${formattedDate}\n⏰ ${time}`;
+        let formattedDate = `${date.getDate().toString().padStart(2, "0")} ${months[date.getMonth()]} at ${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")} for ${hours}H:${mins.toString().padStart(2, "0")}M`;
+        telegramStr += `\n\n[${contestData['name']}](${contestData['url']})\n🎟️ ${platforms[contestData['platform']]}\n⏰ ${formattedDate}`;
 
         if (i < contests.length) {
             respStr += `**[${contestData['name']}](${contestData['url']})**\n:dart: **Platform:** ${platforms[contestData['platform']]}\n:calendar: **Start:** <t:${contestData['start']}:R>\n:stopwatch: **Duration:** ${time}`;
@@ -56,9 +56,7 @@ async function notify(client) {
     }
 
     // Send message on telegram channel
-    client.telegramBot.sendMessage(client.channelTelegram, telegramStr, {
-        parse_mode: 'Markdown', disable_web_page_preview: true
-    });
+    client.telegramBot.sendPhoto(client.channelTelegram, "https://i.imgur.com/KCnOAHf.jpg", { caption: telegramStr, parse_mode: "Markdown", disable_web_page_preview: true })
 
     // Create the embed to be sent to all channels
     const embed = new EmbedBuilder()
