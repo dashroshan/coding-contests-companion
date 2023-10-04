@@ -46,7 +46,7 @@ async function notify(client) {
         let mins = Math.floor((contestData['duration'] / 60) % 60);
         let time = `${hours} ${hours === 1 ? 'hour' : 'hours'}${mins === 0 ? '' : (' and ' + mins + ' minutes')}`;
         let date = new Date(contestData['start'] * 1000);
-        let formattedDate = `${date.getDate().toString().padStart(2, "0")} ${months[date.getMonth()]} at ${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")} for ${hours}H:${mins.toString().padStart(2, "0")}M`;
+        let formattedDate = `${date.getDate().toString().padStart(2, "0")} ${months[date.getMonth()]} at ${formatAMPM(date)} for ${hours}H:${mins.toString().padStart(2, "0")}M`;
         telegramStr += `\n\n[${contestData['name']}](${contestData['url']})\n🎟️ _${platforms[contestData['platform']]}\n⏰ ${formattedDate}_`;
 
         if (i < contests.length) {
