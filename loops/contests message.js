@@ -56,7 +56,7 @@ async function notify(client) {
     }
 
     // Send message on telegram channel
-    client.telegramBot.sendPhoto(client.channelTelegram, "https://i.imgur.com/KCnOAHf.jpg", { caption: telegramStr, parse_mode: "MarkdownV2", disable_web_page_preview: true })
+    client.telegramBot.sendPhoto(client.channelTelegram, "https://i.imgur.com/KCnOAHf.jpg", { caption: telegramStr, parse_mode: "Markdown", disable_web_page_preview: true })
 
     // Create the embed to be sent to all channels
     const embed = new EmbedBuilder()
