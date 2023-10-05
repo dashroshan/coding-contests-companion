@@ -29,14 +29,14 @@ async function notify(client) {
     const contests = await client.database.getContestsStartingSoon();
     if (contests.length === 0) return; // No contests starting soon
 
-    const nextContests = await client.database.getNextXContests(3);
+    const nextContests = await client.database.getNextXContests(5);
 
     // Format the information about the contests starting soon for the embed body
     let respStr = "";
-    let telegramStr = "❇️❇️ *Coding contests starting soon* ❇️❇️";
+    let telegramStr = "❇️❇️ *Coding contest starting soon* ❇️❇️";
     for (let i = 0; i < contests.length + nextContests.length; i++) {
         let contestData;
-        if (i == contests.length) telegramStr += `\n\n❇️❇️ *Next three scheduled contests* ❇️❇️`;
+        if (i == contests.length) telegramStr += `\n\n❇️❇️ *Next five scheduled contests* ❇️❇️`;
         if (i >= contests.length)
             contestData = nextContests[i - contests.length];
         else
