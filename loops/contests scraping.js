@@ -115,14 +115,14 @@ async function hackerEarth() {
 
 // Get contests from GeeksforGeeks
 async function geeksforgeeks() {
-    const res = await axios.get(" https://practiceapi.geeksforgeeks.org/api/vr/events/?page_number=1&sub_type=all&type=contest", headers)
+    const res = await axios.get("https://practiceapi.geeksforgeeks.org/api/vr/events/?page_number=1&sub_type=all&type=contest", headers)
     const futureContests = res.data["results"]["upcoming"];
     let processedData = futureContests.map(c => {
         let name = c["name"]
         let url = "https://practice.geeksforgeeks.org/contest/" + c["slug"]
-        let start = Math.floor(((new Date(c["start_time"])).getTime() - 19800000) / 1000);
-        const endTimeSeconds = (new Date(c["end_time"]).getTime() - 19800000) / 1000;
-        const startTimeSeconds = (new Date(c["start_time"]).getTime() - 19800000) / 1000;
+        let start = Math.floor(((new Date(c["start_time"])).getTime()) / 1000);
+        const endTimeSeconds = (new Date(c["end_time"]).getTime()) / 1000;
+        const startTimeSeconds = (new Date(c["start_time"]).getTime()) / 1000;
         let duration = endTimeSeconds - startTimeSeconds;
 
         return { name, url, start, duration };
