@@ -47,10 +47,10 @@ async function notify(client) {
         let time = `${hours} ${hours === 1 ? 'hour' : 'hours'}${mins === 0 ? '' : (' and ' + mins + ' minutes')}`;
         let date = new Date(contestData['start'] * 1000);
         let formattedDate = `${date.getDate().toString().padStart(2, "0")} ${months[date.getMonth()]} at ${formatAMPM(date)} for ${hours}H:${mins.toString().padStart(2, "0")}M`;
-        telegramStr += `\n\n[${contestData['name']}](${contestData['url']})\n🎟️ _${platforms[contestData['platform']]}\n⏰ ${formattedDate}_`;
+        telegramStr += `\n\n[${contestData['name'].replace(/[\[\]]/g, '')}](${contestData['url']})\n🎟️ _${platforms[contestData['platform']]}\n⏰ ${formattedDate}_`;
 
         if (i < contests.length) {
-            respStr += `**[${contestData['name']}](${contestData['url']})**\n:dart: **Platform:** ${platforms[contestData['platform']]}\n:calendar: **Start:** <t:${contestData['start']}:R>\n:stopwatch: **Duration:** ${time}`;
+            respStr += `**[${contestData['name'].replace(/[\[\]]/g, '')}](${contestData['url']})**\n:dart: **Platform:** ${platforms[contestData['platform']]}\n:calendar: **Start:** <t:${contestData['start']}:R>\n:stopwatch: **Duration:** ${time}`;
             if (i !== contests.length - 1) respStr += "\n\n";
         }
     }
