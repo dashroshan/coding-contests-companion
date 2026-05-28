@@ -23,7 +23,7 @@ async function sendProblem(client) {
     // Return if problem for that day is sent already
     const lastDailyProblem = await client.database.getLastDailyProblem();
     const today = new Date();
-    if (lastDailyProblem === today.getUTCDate() || today.getUTCHours < 2) return;
+    if (lastDailyProblem === today.getUTCDate() || today.getUTCHours() < 2) return;
 
     // Get and format the problem for embed body
     const problem = await problemOfTheDay();

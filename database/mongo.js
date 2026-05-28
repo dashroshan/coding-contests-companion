@@ -5,7 +5,7 @@ const problemChannelSchema = require('./schema/problemChannel.js');
 
 // Save contests from the data array as individual documents for the given platform
 module.exports.saveContests = async function (platform, data) {
-    for (d of data) {
+    for (const d of data) {
         // If a contest with the url exists, ignore it. This makes the query
         // insert only the new contests not already in the db
         await contestSchema.findOneAndUpdate(

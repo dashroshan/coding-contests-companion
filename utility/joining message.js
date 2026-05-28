@@ -5,7 +5,7 @@ async function joiningMessage(guild) {
     try {
         let channelToSend;
         guild.channels.cache.forEach(channel => {
-            const hasPermission = channel.permissionsFor(client.user).has(PermissionFlagsBits.SendMessages);
+            const hasPermission = channel.permissionsFor(guild.client.user).has(PermissionFlagsBits.SendMessages);
             if (channel.type === 0 && !channelToSend && hasPermission) channelToSend = channel;
         });
 

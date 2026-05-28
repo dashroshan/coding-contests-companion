@@ -30,7 +30,6 @@ module.exports = {
 
         // Save server and channel data to db and send a confirmation message
         await interaction.client.database.saveProblemChannel(interaction.guildId, channel.id);
-        await embedMessage(interaction, 'SERVICE ACTIVATED', 'Problem of the day service has been activated for you server!', false);
-        await interaction.editReply({ embeds: [embed] });
+        await embedMessage(interaction, 'SERVICE ACTIVATED', 'Problem of the day service has been activated for your server!', false);
     },
 };
